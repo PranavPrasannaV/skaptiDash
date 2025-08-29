@@ -13,7 +13,7 @@ function App() {
       <Hero />
       <Features />
       <InteractiveDemo />
-      {/* TestimonialsSection and PricingSection removed gays*/}
+      {/* TestimonialsSection and PricingSection removed gays even more*/}
       <CallToAction />
       <Footer />
     </div>
