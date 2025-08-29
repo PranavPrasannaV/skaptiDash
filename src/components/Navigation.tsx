@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import AppLogo from '../assets/WhatsApp Image 2025-08-27 at 11.45.04_682c95f6.jpg';
+import AppLogo from '../assets/skaptixss/skaptixss/skaptixlogo.png';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,7 +45,7 @@ const Navigation = () => {
             <div className="flex justify-between items-center py-4 px-6">
               {/* Logo */}
               <div className="flex items-center space-x-3">
-                <img src={AppLogo} alt="App logo" className="w-10 h-10 object-cover rounded-xl" />
+                <img src={AppLogo} alt="App logo" className="w-16 h-16 object-cover rounded-xl" />
                 <div className="text-2xl font-black text-white tracking-tight">
                   skaptix
                 </div>
