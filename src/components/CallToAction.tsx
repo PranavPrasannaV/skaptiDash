@@ -98,7 +98,7 @@ const CallToAction = () => {
             </div>
 
             {/* Trust Indicators - Redesigned */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto" style={{ display: 'none' }}>
               <div className="group bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-[#6e83f7]/50 transition-all duration-500 transform hover:-translate-y-2">
                 <div className="flex items-center justify-center mb-4">
                   <Users className="w-8 h-8 text-[#6e83f7] mr-3" />
@@ -165,8 +165,8 @@ const CallToAction = () => {
               </div>
               <div className="text-left">
                 <div className="text-sm text-gray-500 font-medium">Contact Us</div>
-                <a href="mailto:Skaptixclo@gmail.com" className="text-[#6e83f7] font-bold text-lg hover:underline">
-                  Skaptixclo@gmail.com
+                <a href="mailto:Support@skaptix.com" className="text-[#6e83f7] font-bold text-lg hover:underline">
+                  Support@skaptix.com
                 </a>
               </div>
             </div>

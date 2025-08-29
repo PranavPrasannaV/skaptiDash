@@ -121,7 +121,7 @@ const Hero = () => {
             </div>
 
             {/* Stats */}
-            <div className="flex gap-12 mt-16 animate-slideInUp delay-1200">
+            <div className="flex gap-12 mt-16 animate-slideInUp delay-1200" style={{ display: 'none' }}>
               <div className="text-center">
                 <div className="text-4xl font-black text-white mb-2">2.5K+</div>
                 <div className="text-[#A8B5DB] font-medium">Small Brands</div>
