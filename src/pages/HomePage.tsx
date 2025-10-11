@@ -1,0 +1,39 @@
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
+import Hero from '../components/Hero';
+import Features from '../components/Features';
+import InteractiveDemo from '../components/InteractiveDemo';
+import CallToAction from '../components/CallToAction';
+import Footer from '../components/Footer';
+
+const HomePage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const scrollTo = (location.state as { scrollTo?: string } | null)?.scrollTo;
+
+    if (scrollTo) {
+      requestAnimationFrame(() => {
+        const element = document.getElementById(scrollTo);
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+      <Hero />
+      <Features />
+      <InteractiveDemo />
+      <CallToAction />
+      <Footer />
+    </div>
+  );
+};
+
+export default HomePage;

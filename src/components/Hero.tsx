@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Zap, TrendingUp } from 'lucide-react';
 import trackGrowthImg from '../assets/skaptixss/skaptixss/trackgorwth.jpg';
 
@@ -104,13 +105,16 @@ const Hero = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 animate-slideInUp delay-1000">
-              <button className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden">
+              <Link
+                to="/waitlist"
+                className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden"
+              >
                 <span className="relative z-10 flex items-center justify-center">
                   Launch Your Brand
                   <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#A8B5DB] to-[#6e83f7] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </button>
+              </Link>
               
               <button className="group border-2 border-[#6e83f7] text-[#6e83f7] px-10 py-5 rounded-2xl font-bold text-lg hover:bg-[#6e83f7] hover:text-white transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden">
                 <span className="relative z-10 flex items-center justify-center">

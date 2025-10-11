@@ -1,5 +1,5 @@
-import React from 'react';
 import { Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -18,15 +18,31 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Quick Links</h4>
             <div className="space-y-2">
-              {['Home', 'Features', 'For Brands', 'About Us'].map((link) => (
-                <a
-                  key={link}
-                  href={`#${link.toLowerCase().replace(' ', '-')}`}
-                  className="block text-gray-400 hover:text-white transition-colors"
-                >
-                  {link}
-                </a>
-              ))}
+              {['Home', 'Features', 'For Brands', 'About Us'].map((link) => {
+                if (link === 'About Us') {
+                  return (
+                    <Link
+                      key={link}
+                      to="/about"
+                      className="block text-gray-400 hover:text-white transition-colors"
+                    >
+                      {link}
+                    </Link>
+                  );
+                }
+
+                const anchorId = link.toLowerCase().replace(' ', '-');
+
+                return (
+                  <a
+                    key={link}
+                    href={`#${anchorId}`}
+                    className="block text-gray-400 hover:text-white transition-colors"
+                  >
+                    {link}
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -34,15 +50,12 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Support</h4>
             <div className="space-y-2">
-              {['Help Center', 'Returns', 'Shipping', 'Size Guide'].map((link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="block text-gray-400 hover:text-white transition-colors"
-                >
-                  {link}
-                </a>
-              ))}
+              <Link
+                to="/#contact"
+                className="block text-gray-400 hover:text-white transition-colors"
+              >
+                Help Center
+              </Link>
             </div>
           </div>
 
@@ -50,7 +63,7 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Legal</h4>
             <div className="space-y-2">
-              {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'GDPR'].map((link) => (
+              {['Privacy Policy', 'Terms of Service'].map((link) => (
                 <a
                   key={link}
                   href="#"

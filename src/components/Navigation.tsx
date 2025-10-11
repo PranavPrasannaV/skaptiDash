@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import AppLogo from '../assets/skaptixss/skaptixss/skaptixlogo.png';
 
@@ -6,6 +7,8 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +23,32 @@ const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSectionNavigation = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    sectionId: string
+  ) => {
+    event.preventDefault();
+
+    const scrollToSection = () => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
+    } else {
+      scrollToSection();
+    }
+
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleMobileNavigate = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -44,34 +73,57 @@ const Navigation = () => {
           }`}>
             <div className="flex justify-between items-center py-4 px-6">
               {/* Logo */}
-              <div className="flex items-center space-x-3">
+              <Link to="/" className="flex items-center space-x-3" onClick={handleMobileNavigate}>
                 <img src={AppLogo} alt="App logo" className="w-16 h-16 object-cover rounded-xl" />
                 <div className="text-2xl font-black text-white tracking-tight">
                   skaptix
                 </div>
-              </div>
+              </Link>
 
               {/* Desktop Menu */}
               <div className="hidden md:flex items-center space-x-10 pr-6">
-                <a href="#" className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2">
+                <Link to="/" onClick={handleMobileNavigate} className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2">
                   Home
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
-                </a>
-                <a href="#features" className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2">
+                </Link>
+                <a
+                  href="#features"
+                  onClick={(event) => handleSectionNavigation(event, 'features')}
+                  className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
+                >
                   Features
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
                 </a>
-                <a href="#demo" className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2">
+                <a
+                  href="#demo"
+                  onClick={(event) => handleSectionNavigation(event, 'demo')}
+                  className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
+                >
                   Demo
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
                 </a>
-                <a href="#contact" className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2">
+                <Link
+                  to="/about"
+                  onClick={handleMobileNavigate}
+                  className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
+                >
+                  About
+                  <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
+                </Link>
+                <a
+                  href="#contact"
+                  onClick={(event) => handleSectionNavigation(event, 'contact')}
+                  className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
+                >
                   Contact
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
                 </a>
-                <button className="bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-300 transform hover:-translate-y-1">
+                <Link
+                  to="/waitlist"
+                  className="bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-300 transform hover:-translate-y-1"
+                >
                   Get Started
-                </button>
+                </Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -86,21 +138,44 @@ const Navigation = () => {
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
               <div className="md:hidden bg-black/90 backdrop-blur-2xl rounded-2xl mt-2 p-6 border border-white/10 animate-fadeIn">
-                <a href="#" className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link to="/" className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10" onClick={handleMobileNavigate}>
                   Home
-                </a>
-                <a href="#features" className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10" onClick={() => setIsMobileMenuOpen(false)}>
+                </Link>
+                <a
+                  href="#features"
+                  className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10"
+                  onClick={(event) => handleSectionNavigation(event, 'features')}
+                >
                   Features
                 </a>
-                <a href="#demo" className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10" onClick={() => setIsMobileMenuOpen(false)}>
+                <a
+                  href="#demo"
+                  className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10"
+                  onClick={(event) => handleSectionNavigation(event, 'demo')}
+                >
                   Demo
                 </a>
-                <a href="#contact" className="block py-3 text-white/80 hover:text-white transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link
+                  to="/about"
+                  className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10"
+                  onClick={handleMobileNavigate}
+                >
+                  About
+                </Link>
+                <a
+                  href="#contact"
+                  className="block py-3 text-white/80 hover:text-white transition-colors"
+                  onClick={(event) => handleSectionNavigation(event, 'contact')}
+                >
                   Contact
                 </a>
-                <button className="w-full bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white py-3 rounded-xl mt-4 font-bold hover:shadow-lg transition-all duration-300">
+                <Link
+                  to="/waitlist"
+                  onClick={handleMobileNavigate}
+                  className="w-full bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white py-3 rounded-xl mt-4 font-bold hover:shadow-lg transition-all duration-300 text-center"
+                >
                   Get Started
-                </button>
+                </Link>
               </div>
             )}
           </div>

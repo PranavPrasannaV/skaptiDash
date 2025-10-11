@@ -1,22 +1,15 @@
-import Navigation from './components/Navigation';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import InteractiveDemo from './components/InteractiveDemo';
-// Removed TestimonialsSection and PricingSection per request
-import CallToAction from './components/CallToAction';
-import Footer from './components/Footer';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import WaitlistPage from './pages/WaitlistPage';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      <Hero />
-      <Features />
-      <InteractiveDemo />
-      {/* TestimonialsSection and PricingSection removed gays*/}
-      <CallToAction />
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/waitlist" element={<WaitlistPage />} />
+  <Route path="/about" element={<AboutPage />} />
+    </Routes>
   );
 }
 
