@@ -4,18 +4,54 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Highest priority overrides to prevent browser color changes */
+:root {
+  color-scheme: dark;
+  forced-color-adjust: none !important;
+  -webkit-forced-color-adjust: none !important;
+}
+
 * {
   font-family: 'Inter', sans-serif;
+  forced-color-adjust: none !important;
+  -webkit-forced-color-adjust: none !important;
 }
 
 html {
   scroll-behavior: smooth;
-  background: #000;
+  background: #000 !important;
+  forced-color-adjust: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
 }
 
 body {
-  background: #000;
+  background: #000 !important;
   overflow-x: hidden;
+  forced-color-adjust: none !important;
+  color: #ffffff !important;
+}
+
+button,
+a,
+img {
+  forced-color-adjust: none !important;
+  -webkit-forced-color-adjust: none !important;
+}
+
+#root {
+  background: #000 !important;
+  color: #ffffff !important;
+}
+
+/* Preserve all background colors */
+[class*="bg-white"],
+[class*="bg-gray"],
+[class*="bg-gradient"],
+[class*="from-"],
+[class*="to-"],
+[class*="via-"] {
+  forced-color-adjust: none !important;
 }
 
 /* Revolutionary Animations */
@@ -111,21 +147,25 @@ body {
 /* Animation Classes */
 .animate-fadeIn {
   animation: fadeIn 1s ease-out forwards;
+  will-change: opacity, transform;
 }
 
 .animate-slideInUp {
   animation: slideInUp 1.2s ease-out forwards;
   opacity: 0;
+  will-change: opacity, transform;
 }
 
 .animate-slideInRight {
   animation: slideInRight 1.2s ease-out forwards;
   opacity: 0;
+  will-change: opacity, transform;
 }
 
 .animate-slideInLeft {
   animation: slideInLeft 1.2s ease-out forwards;
   opacity: 0;
+  will-change: opacity, transform;
 }
 
 .animate-scaleX {
@@ -164,15 +204,17 @@ body {
 
 /* Glass Morphism Effects */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05) !important;
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  forced-color-adjust: none !important;
 }
 
 .glass-dark {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3) !important;
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  forced-color-adjust: none !important;
 }
 
 /* Custom Scrollbar */
@@ -213,6 +255,33 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  forced-color-adjust: none !important;
+  will-change: background;
+}
+
+/* Preserve gradient backgrounds */
+[class*="bg-gradient"],
+[class*="from-"],
+[class*="to-"],
+[class*="via-"] {
+  forced-color-adjust: none !important;
+  will-change: background;
+}
+
+/* Preserve colored backgrounds */
+.bg-white,
+.bg-gray-50,
+.bg-gray-100,
+[class*="bg-["] {
+  forced-color-adjust: none !important;
+}
+
+/* Ensure buttons maintain their colors */
+button,
+a[class*="bg-"],
+.btn-magnetic {
+  forced-color-adjust: none !important;
+  will-change: transform, box-shadow;
 }
 
 /* Background Patterns */

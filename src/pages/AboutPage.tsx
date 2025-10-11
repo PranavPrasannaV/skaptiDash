@@ -2,35 +2,33 @@ import { useEffect } from 'react';
 import { Sparkles, Users2, Target, Star, Rocket, HeartHandshake, Award, Lightbulb } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import neilImage from '../assets/neil.jpg';
+import balajiImage from '../assets/balaji.jpg';
 
 const teamMembers = [
   {
-    name: 'Ava Thompson',
-    role: 'Founder & CEO',
-    focus: 'Vision & partnerships',
-    bio: 'Product storyteller obsessed with scaling emerging fashion labels into global names.',
-    gradient: 'from-[#6e83f7] via-[#A8B5DB] to-[#6e83f7]'
+    name: 'Neil Joshi',
+    role: 'CEO & Founder',
+    focus: 'Vision & Strategy',
+    bio: 'Visionary leader driving innovation and growth, scaling emerging fashion brands into global powerhouses.',
+    gradient: 'from-[#6e83f7] via-[#A8B5DB] to-[#6e83f7]',
+    image: neilImage
   },
   {
-    name: 'Marin Carter',
-    role: 'Chief Product Officer',
-    focus: 'Experiential commerce',
-    bio: 'Builds immersive shopping journeys marrying data, design, and cultural craft.',
-    gradient: 'from-[#A8B5DB] via-[#6e83f7] to-[#2A2F4F]'
+    name: 'Balaji Prasanna Venkatesh',
+    role: 'CTO & Co-Founder',
+    focus: 'Technology & Innovation',
+    bio: 'Technical architect building cutting-edge infrastructure for seamless brand experiences and real-time analytics.',
+    gradient: 'from-[#2A2F4F] via-[#6e83f7] to-[#A8B5DB]',
+    image: balajiImage
   },
   {
-    name: 'Jordan Lee',
-    role: 'Head of Engineering',
-    focus: 'Realtime infrastructure',
-    bio: 'Architect of Skaptix Core, delivering blazing-fast drops and zero-latency analytics.',
-    gradient: 'from-[#2A2F4F] via-[#6e83f7] to-[#A8B5DB]'
-  },
-  {
-    name: 'Sasha Patel',
-    role: 'Brand Success Lead',
-    focus: 'Creator enablement',
-    bio: 'Coaches founders through growth playbooks and community activations worldwide.',
-    gradient: 'from-[#6e83f7] via-[#2A2F4F] to-[#A8B5DB]'
+    name: 'Ziliconcloud',
+    role: 'Consultant',
+    focus: 'Strategic Advisory',
+    bio: 'Strategic partner providing expert guidance on scaling operations and driving business excellence.',
+    gradient: 'from-[#A8B5DB] via-[#6e83f7] to-[#2A2F4F]',
+    image: null
   }
 ];
 
@@ -157,7 +155,7 @@ const AboutPage = () => {
               <ArrowIcon />
             </button>
           </div>
-          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {teamMembers.map((member) => (
               <article
                 key={member.name}
@@ -165,9 +163,19 @@ const AboutPage = () => {
               >
                 <div className={`absolute -top-20 -right-20 h-48 w-48 rounded-full blur-3xl opacity-60 bg-gradient-to-br ${member.gradient}`} />
                 <div className="relative z-10">
-                  <div className="h-20 w-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-black text-white shadow-xl">
-                    {member.name[0]}
-                  </div>
+                  {member.image ? (
+                    <div className="h-20 w-20 rounded-2xl overflow-hidden border-2 border-white/20 shadow-xl">
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-20 w-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-black text-white shadow-xl">
+                      {member.name[0]}
+                    </div>
+                  )}
                   <h3 className="text-xl font-bold mt-6">{member.name}</h3>
                   <p className="text-[#A8B5DB] font-semibold">{member.role}</p>
                   <p className="text-white/60 text-sm mt-2 leading-relaxed">{member.bio}</p>

@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import WaitlistPage from './pages/WaitlistPage';
-import AboutPage from './pages/AboutPage';
+import HomePage from './pages/HomePage.tsx';
+import WaitlistPage from './pages/WaitlistPage.tsx';
+import AboutPage from './pages/AboutPage.tsx';
 
 function App() {
   return (
