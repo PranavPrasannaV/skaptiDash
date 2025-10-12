@@ -122,7 +122,7 @@ const Navigation = () => {
                   to="/waitlist"
                   className="bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  Get Started
+                  Join Waitlist
                 </Link>
               </div>
 
@@ -174,7 +174,7 @@ const Navigation = () => {
                   onClick={handleMobileNavigate}
                   className="w-full bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white py-3 rounded-xl mt-4 font-bold hover:shadow-lg transition-all duration-300 text-center"
                 >
-                  Get Started
+                  Join Waitlist
                 </Link>
               </div>
             )}

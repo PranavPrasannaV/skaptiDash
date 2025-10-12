@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ShoppingBag, Heart, Users, Star, RotateCcw, Shield, Zap, TrendingUp, Globe } from 'lucide-react';
+import { ShoppingBag, Heart, Users, Star, RotateCcw, Shield, Zap, Globe } from 'lucide-react';
 import qualityClothingImg from '../assets/skaptixss/skaptixss/qualityclothing.jpg';
 import personalizedShoppingImg from '../assets/skaptixss/skaptixss/personalizedshopping.jpg';
 import uploadProductsImg from '../assets/skaptixss/skaptixss/uploadproducts.jpg';
@@ -126,13 +126,6 @@ const Features = () => {
                     <p className="text-xl text-gray-300 leading-relaxed mb-8">
                       {feature.description}
                     </p>
-
-                    <button className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-8 py-4 rounded-2xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-1">
-                      <span className="flex items-center">
-                        Learn More
-                        <TrendingUp className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
-                      </span>
-                    </button>
                   </div>
                 </div>
 

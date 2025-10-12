@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Check, Zap, Crown, Rocket, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PricingSection = () => {
   const [billingCycle, setBillingCycle] = useState('monthly');
@@ -178,16 +179,17 @@ const PricingSection = () => {
                 </div>
 
                 {/* CTA Button */}
-                <button className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1 ${
-                  plan.popular
-                    ? 'bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white hover:shadow-2xl hover:shadow-[#6e83f7]/25'
-                    : 'border-2 border-[#6e83f7] text-[#6e83f7] hover:bg-[#6e83f7] hover:text-white'
-                }`}>
-                  <span className="flex items-center justify-center">
-                    Get Started
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </button>
+                <Link
+                  to="/waitlist"
+                  className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white hover:shadow-2xl hover:shadow-[#6e83f7]/25'
+                      : 'border-2 border-[#6e83f7] text-[#6e83f7] hover:bg-[#6e83f7] hover:text-white'
+                  }`}
+                >
+                  Join Waitlist
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </div>
           ))}

@@ -197,18 +197,11 @@ const CallToAction = () => {
                 className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-12 py-6 rounded-2xl font-black text-xl hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden"
               >
                 <span className="relative z-10 flex items-center justify-center">
-                  Launch Your Brand
+                  Join Waitlist Now
                   <ArrowRight className="ml-3 w-7 h-7 group-hover:translate-x-2 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#A8B5DB] to-[#6e83f7] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </Link>
-              
-              <button className="group border-2 border-[#6e83f7] text-[#6e83f7] px-12 py-6 rounded-2xl font-black text-xl hover:bg-[#6e83f7] hover:text-white transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden">
-                <span className="relative z-10 flex items-center justify-center">
-                  Explore Platform
-                  <Globe className="ml-3 w-7 h-7 group-hover:rotate-12 transition-transform" />
-                </span>
-              </button>
             </div>
 
             {/* Trust Indicators - Redesigned */}
