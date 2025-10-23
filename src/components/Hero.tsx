@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Zap } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 import trackGrowthImg from '../assets/skaptixss/skaptixss/trackgorwth.jpg';
 
 const Hero = () => {
@@ -77,30 +77,25 @@ const Hero = () => {
           {/* Left Content - Spans 7 columns */}
           <div className="col-span-12 lg:col-span-7 relative z-10">
             {/* Floating Badge */}
-            <div className="inline-flex items-center bg-gradient-to-r from-[#6e83f7]/20 to-[#A8B5DB]/20 backdrop-blur-xl border border-[#6e83f7]/30 rounded-full px-6 py-3 mb-8 animate-slideInUp">
-              <Sparkles className="w-5 h-5 text-[#6e83f7] mr-3 animate-pulse" />
-              <span className="text-[#6e83f7] font-semibold">Empowering Small Brands Globally</span>
-              <div className="ml-3 w-2 h-2 bg-[#6e83f7] rounded-full animate-ping" />
-            </div>
+            
 
             {/* Revolutionary Title */}
             <div className="mb-10">
               <h1 className="text-6xl lg:text-8xl font-black leading-none mb-6">
                 <span className="block text-white animate-slideInUp delay-200">
-                  BRAND
+                  THE
                 </span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] animate-slideInUp delay-400">
-                  ELEVATION
+                  ONLY
                 </span>
                 <span className="block text-white/80 text-4xl lg:text-6xl font-light animate-slideInUp delay-600">
-                  Platform
+                  MARKETPLACE
                 </span>
               </h1>
             </div>
 
             <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed max-w-2xl animate-slideInUp delay-800">
-              Transform your small brand into a global powerhouse. Connect with millions of shoppers, 
-              showcase your unique products, and build your empire on the world's most innovative fashion platform.
+              Discover thousands of trusted fashion brands in one seamless platform. Verified sellers, unified shipping, and free, easy returns.
             </p>
 
             {/* Action Buttons */}

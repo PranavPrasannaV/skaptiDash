@@ -73,9 +73,9 @@ const Navigation = () => {
           }`}>
             <div className="flex justify-between items-center py-4 px-6">
               {/* Logo */}
-              <Link to="/" className="flex items-center space-x-3" onClick={handleMobileNavigate}>
-                <img src={AppLogo} alt="App logo" className="w-16 h-16 object-cover rounded-xl" />
-                <div className="text-2xl font-black text-white tracking-tight">
+                <Link to="/" className="flex items-center space-x-3" onClick={handleMobileNavigate}>
+                <img src={AppLogo} alt="App logo" className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg" />
+                <div className="text-2xl font-black text-white tracking-tight leading-none">
                   skaptix
                 </div>
               </Link>
@@ -110,14 +110,14 @@ const Navigation = () => {
                   About
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
                 </Link>
-                <a
-                  href="#contact"
-                  onClick={(event) => handleSectionNavigation(event, 'contact')}
+                <Link
+                  to="/contact"
+                  onClick={handleMobileNavigate}
                   className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
                 >
                   Contact
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
-                </a>
+                </Link>
                 <Link
                   to="/waitlist"
                   className="bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-300 transform hover:-translate-y-1"
@@ -137,45 +137,49 @@ const Navigation = () => {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-              <div className="md:hidden bg-black/90 backdrop-blur-2xl rounded-2xl mt-2 p-6 border border-white/10 animate-fadeIn">
-                <Link to="/" className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10" onClick={handleMobileNavigate}>
-                  Home
-                </Link>
-                <a
-                  href="#features"
-                  className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10"
-                  onClick={(event) => handleSectionNavigation(event, 'features')}
-                >
-                  Features
-                </a>
-                <a
-                  href="#demo"
-                  className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10"
-                  onClick={(event) => handleSectionNavigation(event, 'demo')}
-                >
-                  Demo
-                </a>
-                <Link
-                  to="/about"
-                  className="block py-3 text-white/80 hover:text-white transition-colors border-b border-white/10"
-                  onClick={handleMobileNavigate}
-                >
-                  About
-                </Link>
-                <a
-                  href="#contact"
-                  className="block py-3 text-white/80 hover:text-white transition-colors"
-                  onClick={(event) => handleSectionNavigation(event, 'contact')}
-                >
-                  Contact
-                </a>
-                <Link
-                  to="/waitlist"
-                  onClick={handleMobileNavigate}
-                  className="w-full bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white py-3 rounded-xl mt-4 font-bold hover:shadow-lg transition-all duration-300 text-center"
-                >
-                  Join Waitlist
-                </Link>
+              <div className="md:hidden bg-black/95 backdrop-blur-lg mt-3 p-4 rounded-3xl shadow-xl border border-white/6">
+                <nav className="flex flex-col gap-1">
+                  <Link to="/" className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base" onClick={handleMobileNavigate}>
+                    Home
+                  </Link>
+                  <a
+                    href="#features"
+                    className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
+                    onClick={(event) => handleSectionNavigation(event, 'features')}
+                  >
+                    Features
+                  </a>
+                  <a
+                    href="#demo"
+                    className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
+                    onClick={(event) => handleSectionNavigation(event, 'demo')}
+                  >
+                    Demo
+                  </a>
+                  <Link
+                    to="/about"
+                    className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
+                    onClick={handleMobileNavigate}
+                  >
+                    About
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
+                    onClick={handleMobileNavigate}
+                  >
+                    Contact
+                  </Link>
+                  <div className="pt-2">
+                    <Link
+                      to="/waitlist"
+                      onClick={handleMobileNavigate}
+                      className="block w-full bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white py-3 rounded-xl mt-2 font-bold hover:shadow-lg transition-all duration-300 text-center text-base"
+                    >
+                      Join Waitlist
+                    </Link>
+                  </div>
+                </nav>
               </div>
             )}
           </div>

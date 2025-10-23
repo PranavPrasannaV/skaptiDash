@@ -2,6 +2,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import { collection, doc, getDoc, serverTimestamp, writeBatch } from 'firebase/firestore';
 import { ArrowRight, CheckCircle2, Clock, Mail, Shield, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { db } from '../lib/firebase';
@@ -16,26 +17,11 @@ const WaitlistPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [cardsContainerHeight, setCardsContainerHeight] = useState<number | null>(null);
   const formContainerRef = useRef<HTMLDivElement | null>(null);
   const topContentRef = useRef<HTMLDivElement | null>(null);
 
   const updateCardsHeight = useCallback(() => {
-    if (typeof window === 'undefined') return;
-
-    const formEl = formContainerRef.current;
-    const topEl = topContentRef.current;
-
-    if (window.innerWidth >= 1024 && formEl && topEl) {
-      const GAP_BETWEEN_SECTIONS_PX = 32; // tailwind gap-8
-      const formHeight = formEl.offsetHeight;
-      const topHeight = topEl.offsetHeight;
-      const availableHeight = formHeight - topHeight - GAP_BETWEEN_SECTIONS_PX;
-
-      setCardsContainerHeight(availableHeight > 0 ? availableHeight : null);
-    } else {
-      setCardsContainerHeight(null);
-    }
+    // Height calculation removed as it's no longer needed
   }, []);
 
   useLayoutEffect(() => {
@@ -213,48 +199,55 @@ const WaitlistPage = () => {
               <div className="space-y-8" ref={topContentRef}>
                 <div className="inline-flex items-center bg-white/5 border border-white/10 rounded-full px-5 py-2 backdrop-blur">
                   <Sparkles className="w-4 h-4 text-[#A8B5DB] mr-2" />
-                  <span className="text-sm font-medium text-white/70">Early access • Launching Q1 2026</span>
+                  <span className="text-sm font-medium text-white/70">Launching Q1 2026</span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
-                  Elevate your brand with the Skaptix creator waitlist
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight animate-pulse-heading">
+                  Show us Your Interest
                 </h1>
 
-                <p className="text-lg text-white/70 leading-relaxed max-w-xl">
-                  Get priority onboarding, hands-on guidance, and your own digital storefront before we go public. We partner with founders building the next generation of culture-defining fashion brands.
-                </p>
+
               </div>
 
-              <div
-                className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left lg:h-full"
-                style={cardsContainerHeight ? { height: cardsContainerHeight } : undefined}
-              >
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left items-start">
                 {[
                   {
                     icon: CheckCircle2,
-                    title: 'Concierge launch plan',
-                    description: 'One-on-one playbook to ship your first 30 days on Skaptix.'
+                    title: 'Early Access',
+                    description: 'Gain priority entry to Skaptix before public launch.'
                   },
                   {
                     icon: Shield,
-                    title: 'Founder-only community',
-                    description: 'Private hub of global founders and growth experts.'
+                    title: 'Exclusive Discounts',
+                    description: 'On your first few purchases, enjoy 15-20% off your orders.'
                   },
                   {
                     icon: Clock,
-                    title: 'Priority features',
-                    description: 'Access new drops, analytics, and integrations first.'
+                    title: 'Influence Skaptix',
+                    description: 'Give us your feedback, invest in our growth.'
                   }
-                ].map((item) => (
+                ].map((item, idx) => (
                   <div
                     key={item.title}
-                    className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm hover:border-[#6e83f7]/50 transition-all duration-300 flex flex-col justify-between h-full"
+                    className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm hover:border-[#6e83f7]/50 transition-all duration-300 flex flex-col justify-start animate-float-card"
+                    style={{ animationDelay: `${idx * 0.25}s` }}
                   >
                     <item.icon className="w-6 h-6 text-[#6e83f7] mb-4" />
                     <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
                     <p className="text-sm text-white/60 leading-relaxed">{item.description}</p>
                   </div>
                 ))}
+                <div className="mt-8 flex justify-start">
+                  <Link to="/waitlist-seller">
+                    <button
+                      type="button"
+                      className="px-6 py-3 sm:px-8 sm:py-4 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-black font-semibold shadow-lg hover:opacity-95 transition text-base sm:text-lg whitespace-nowrap"
+                      aria-label="Interested in Selling?"
+                    >
+                      Interested in Selling?
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -265,14 +258,12 @@ const WaitlistPage = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-[#6e83f7]/10 via-transparent to-[#A8B5DB]/10 pointer-events-none" />
               <div className="relative">
                 <h2 className="text-2xl font-black mb-2">Join the waitlist</h2>
-                <p className="text-sm text-gray-500 mb-8">
-                  We onboard new partners in curated cohorts to protect quality and growth for every brand.
-                </p>
+                
 
                 <form className="space-y-5" onSubmit={handleSubmit}>
                   <div className="space-y-2">
                     <label htmlFor="fullName" className="text-sm font-semibold text-gray-700">
-                      Full name*
+                      Full Name*
                     </label>
                     <input
                       id="fullName"
@@ -281,14 +272,14 @@ const WaitlistPage = () => {
                       required
                       value={formData.fullName}
                       onChange={handleChange}
-                      placeholder="Ava Thompson"
+                      placeholder="Rufus Houndstooth"
                       className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-semibold text-gray-700">
-                      Business email*
+                       Email*
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -299,7 +290,7 @@ const WaitlistPage = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="ava@brandstudio.com"
+                        placeholder="rufus@randomstuff.com"
                         className="w-full rounded-2xl border border-gray-200 bg-white pl-11 pr-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
                       />
                     </div>
@@ -307,7 +298,7 @@ const WaitlistPage = () => {
 
                   <div className="space-y-2">
                     <label htmlFor="brandName" className="text-sm font-semibold text-gray-700">
-                      Brand name
+                      How do you usually shop online?
                     </label>
                     <input
                       id="brandName"
@@ -315,32 +306,19 @@ const WaitlistPage = () => {
                       type="text"
                       value={formData.brandName}
                       onChange={handleChange}
-                      placeholder="Skaptix Studios"
+                      placeholder="Tiktok, Instragram, Brand Websites..."
                       className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="website" className="text-sm font-semibold text-gray-700">
-                      Website or lookbook
-                    </label>
-                    <input
-                      id="website"
-                      name="website"
-                      type="url"
-                      value={formData.website}
-                      onChange={handleChange}
-                      placeholder="https://"
-                      className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
-                    />
-                  </div>
+
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] px-6 py-2.5 text-base font-semibold text-white shadow-lg transition hover:shadow-xl hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70"
                   >
-                    {isSubmitting ? 'Joining waitlist…' : 'Request priority access'}
+                    {isSubmitting ? 'Joining waitlist…' : 'Submit'}
                     {!isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
                   </button>
 

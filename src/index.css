@@ -47,7 +47,77 @@ img {
 /* Preserve all background colors */
 [class*="bg-white"],
 [class*="bg-gray"],
-[class*="bg-gradient"],
+[class*="bg-gradient"] {
+  forced-color-adjust: none !important;
+  -webkit-forced-color-adjust: none !important;
+}
+
+/* Contact form animations */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  70% {
+    opacity: 0.95;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  0% { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-in-delayed {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(40px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(1.02) translateY(-5px);
+  }
+  80% {
+    transform: scale(0.98) translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 1s cubic-bezier(0.36, 0, 0.66, 1) forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.animate-slide-up {
+  animation: slide-up 1s cubic-bezier(0.36, 0, 0.66, 1) forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.animate-bounce-in-delayed {
+  animation: bounce-in-delayed 1.2s cubic-bezier(0.36, 0, 0.66, 1) forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+}
 [class*="from-"],
 [class*="to-"],
 [class*="via-"] {
@@ -381,3 +451,54 @@ a[class*="bg-"],
     border: 1px solid rgba(255, 255, 255, 0.05);
   }
 }
+
+/* Waitlist unique animations */
+@keyframes float-card {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 2px 16px rgba(110,131,247,0.15);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.01);
+    box-shadow: 0 12px 28px rgba(110,131,247,0.35);
+  }
+}
+
+@keyframes pulse-heading {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(168,181,219,0.3));
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.01);
+    filter: drop-shadow(0 0 16px rgba(110,131,247,0.5));
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-32px) scale(0.98);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(6px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes color-wave {
+  0%, 100% { color: #ffffff; }
+  25% { color: #6e83f7; }
+  50% { color: #A8B5DB; }
+  75% { color: #6e83f7; }
+}
+
+.animate-float-card { animation: float-card 3s ease-in-out infinite; }
+.animate-pulse-heading { animation: pulse-heading 2.2s ease-in-out infinite; }
+.animate-slide-in-left { animation: slide-in-left 0.9s cubic-bezier(0.36, 0, 0.66, 1) both; }
+.animate-color-wave { animation: color-wave 2.8s ease-in-out infinite; }

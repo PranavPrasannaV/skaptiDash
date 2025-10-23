@@ -5,73 +5,49 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 items-start">
           {/* Brand */}
           <div>
             <div className="text-2xl font-bold text-[#6e83f7] mb-4">skaptix</div>
             <p className="text-gray-400 leading-relaxed">
-              Revolutionizing fashion e-commerce with premium quality and personalized experiences.
+              A unified fashion marketplace connecting verified brands and shoppers through one seamless platform.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links - Horizontal */}
           <div>
             <h4 className="font-bold mb-4">Quick Links</h4>
-            <div className="space-y-2">
-              {['Home', 'Features', 'For Brands', 'About Us'].map((link) => {
-                if (link === 'About Us') {
-                  return (
-                    <Link
-                      key={link}
-                      to="/about"
-                      className="block text-gray-400 hover:text-white transition-colors"
-                    >
-                      {link}
-                    </Link>
-                  );
-                }
-
-                const anchorId = link.toLowerCase().replace(' ', '-');
-
-                return (
-                  <a
-                    key={link}
-                    href={`#${anchorId}`}
-                    className="block text-gray-400 hover:text-white transition-colors"
-                  >
-                    {link}
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h4 className="font-bold mb-4">Support</h4>
-            <div className="space-y-2">
+            <div className="flex flex-wrap gap-6">
               <Link
-                to="/#contact"
-                className="block text-gray-400 hover:text-white transition-colors"
+                to="/"
+                className="text-gray-400 hover:text-white transition-colors"
               >
-                Help Center
+                Home
               </Link>
-            </div>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="font-bold mb-4">Legal</h4>
-            <div className="space-y-2">
-              {['Privacy Policy', 'Terms of Service'].map((link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="block text-gray-400 hover:text-white transition-colors"
-                >
-                  {link}
-                </a>
-              ))}
+              <a
+                href="/#features"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Features
+              </a>
+              <Link
+                to="/about"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                About
+              </Link>
+              <Link
+                to="/contact"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Contact
+              </Link>
+              <Link
+                to="/waitlist"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Waitlist
+              </Link>
             </div>
           </div>
         </div>
@@ -81,7 +57,7 @@ const Footer = () => {
             Made with <Heart className="w-4 h-4 text-red-500 mx-1" /> by the Skaptix Team
           </p>
           <p className="text-gray-500 text-sm mt-2">
-            © 2025 Skaptix. All rights reserved.
+            © 2025 Skaptix Technologies LLC. All rights reserved.
           </p>
         </div>
       </div>

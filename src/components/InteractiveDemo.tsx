@@ -29,16 +29,27 @@ const InteractiveDemo = () => {
 
   return (
     <section id="demo" className="py-32 bg-gradient-to-br from-white via-gray-50 to-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB]" 
-             style={{
-               backgroundImage: `
-                 linear-gradient(45deg, transparent 40%, rgba(110, 131, 247, 0.1) 50%, transparent 60%),
-                 linear-gradient(-45deg, transparent 40%, rgba(168, 181, 219, 0.1) 50%, transparent 60%)
-               `,
-               backgroundSize: '60px 60px'
-             }} />
+      {/* Subtle radial accents kept at low opacity for depth */}
+      <style>{`
+        @keyframes accentPulseDemo {
+          0% { opacity: 0.12; transform: scale(1); }
+          50% { opacity: 0.22; transform: scale(1.01); }
+          100% { opacity: 0.12; transform: scale(1); }
+        }
+      `}</style>
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 25% 40%, rgba(110,131,247,0.06) 0%, transparent 45%),
+              radial-gradient(circle at 75% 15%, rgba(168,181,219,0.05) 0%, transparent 45%)
+            `,
+            transform: `translateY(0px)`,
+            opacity: 0.18,
+            animation: 'accentPulseDemo 10s ease-in-out infinite'
+          }}
+        />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8">
@@ -106,7 +117,7 @@ const InteractiveDemo = () => {
               </div>
             </div>
 
-            {/* Device Selector */}
+              {/* Device Selector */}
             <div className="flex gap-4">
               {[
                 { id: 'mobile', icon: Smartphone, label: 'Mobile' }
@@ -128,7 +139,7 @@ const InteractiveDemo = () => {
           </div>
 
           {/* Right Side - Demo Screen */}
-          <div className="relative">
+            <div className="relative">
             <div className="bg-gray-900 rounded-3xl p-8 shadow-2xl transition-all duration-500 max-w-[400px] mx-auto">
               {/* Screen Header */}
               <div className="flex items-center justify-between mb-6">
