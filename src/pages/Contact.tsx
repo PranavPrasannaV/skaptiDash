@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', company: '', website: '', message: '' });
+
+  // Set page title
+  useEffect(() => {
+    document.title = 'Contact | Skaptix';
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });

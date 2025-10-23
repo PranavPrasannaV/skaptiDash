@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import { collection, doc, getDoc, serverTimestamp, writeBatch } from 'firebase/firestore';
 import { ArrowRight, CheckCircle2, Clock, Mail, Shield, Sparkles } from 'lucide-react';
@@ -33,6 +33,11 @@ const WaitlistPage = () => {
   useLayoutEffect(() => {
     updateCardsHeight();
   }, [status, formData.fullName, formData.email, formData.brandName, formData.website, isSubmitting, updateCardsHeight]);
+
+  // Set page title
+  useEffect(() => {
+    document.title = 'Join Waitlist | Skaptix';
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -324,7 +329,7 @@ const WaitlistPage = () => {
 
                   {status === 'success' && (
                     <p className="rounded-2xl border border-green-200 bg-green-50 px-4 py-2.5 text-sm font-medium text-green-700">
-                      You&apos;re on the list. We&apos;ll reach out within 48 hours with your next steps.
+                      You&apos;re on the list. We&apos;ll reach out when Skaptix is ready for you.
                     </p>
                   )}
 

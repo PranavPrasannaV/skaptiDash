@@ -55,6 +55,7 @@ const momentumHighlights = [
 const AboutPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
+    document.title = 'About | Skaptix';
   }, []);
 
   return (

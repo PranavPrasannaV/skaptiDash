@@ -1,10 +1,14 @@
 
+import { useEffect } from 'react';
 import { ArrowRight, CheckCircle2, Clock, Mail, Shield } from 'lucide-react';
 // Link not required on this page
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const WaitlistPageSeller = () => {
+  useEffect(() => {
+    document.title = 'Seller Waitlist | Skaptix';
+  }, []);
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />

@@ -24,6 +24,11 @@ const HomePage = () => {
     }
   }, [location, navigate]);
 
+  // Set page title
+  useEffect(() => {
+    document.title = 'Home | Skaptix';
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Navigation />
