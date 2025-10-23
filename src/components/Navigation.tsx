@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import AppLogo from '../assets/skaptixss/skaptixss/skaptixlogo.png';
 
@@ -7,8 +7,6 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,28 +21,6 @@ const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleSectionNavigation = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    sectionId: string
-  ) => {
-    event.preventDefault();
-
-    const scrollToSection = () => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
-
-    if (location.pathname !== '/') {
-      navigate('/', { state: { scrollTo: sectionId } });
-    } else {
-      scrollToSection();
-    }
-
-    setIsMobileMenuOpen(false);
-  };
 
   const handleMobileNavigate = () => {
     setIsMobileMenuOpen(false);
@@ -86,22 +62,6 @@ const Navigation = () => {
                   Home
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
                 </Link>
-                <a
-                  href="#features"
-                  onClick={(event) => handleSectionNavigation(event, 'features')}
-                  className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
-                >
-                  Features
-                  <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
-                </a>
-                <a
-                  href="#demo"
-                  onClick={(event) => handleSectionNavigation(event, 'demo')}
-                  className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
-                >
-                  Demo
-                  <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
-                </a>
                 <Link
                   to="/about"
                   onClick={handleMobileNavigate}
@@ -150,20 +110,6 @@ const Navigation = () => {
                   <Link to="/" className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base" onClick={handleMobileNavigate}>
                     Home
                   </Link>
-                  <a
-                    href="#features"
-                    className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
-                    onClick={(event) => handleSectionNavigation(event, 'features')}
-                  >
-                    Features
-                  </a>
-                  <a
-                    href="#demo"
-                    className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
-                    onClick={(event) => handleSectionNavigation(event, 'demo')}
-                  >
-                    Demo
-                  </a>
                   <Link
                     to="/about"
                     className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
