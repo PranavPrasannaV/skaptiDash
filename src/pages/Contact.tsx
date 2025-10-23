@@ -46,7 +46,7 @@ const Contact = () => {
                   name="email" 
                   value={form.email} 
                   onChange={handleChange} 
-                  placeholder="Work email" 
+                  placeholder="Email" 
                   className="w-full rounded-xl p-4 bg-transparent border border-white/10 transition-all duration-300 focus:border-[#6e83f7]/50 focus:ring-2 focus:ring-[#6e83f7]/20 hover:border-white/20 text-lg font-medium text-white/90 placeholder:text-white/40"
                 />
               </div>
@@ -56,19 +56,11 @@ const Contact = () => {
                 name="company" 
                 value={form.company} 
                 onChange={handleChange} 
-                placeholder="Company" 
+                placeholder="Subject" 
                 className="w-full rounded-xl p-4 bg-transparent border border-white/10 transition-all duration-300 focus:border-[#6e83f7]/50 focus:ring-2 focus:ring-[#6e83f7]/20 hover:border-white/20 text-lg font-medium text-white/90 placeholder:text-white/40"
               />
             </div>
-            <div className="group">
-              <input 
-                name="website" 
-                value={form.website} 
-                onChange={handleChange} 
-                placeholder="Website" 
-                className="w-full rounded-xl p-4 bg-transparent border border-white/10 transition-all duration-300 focus:border-[#6e83f7]/50 focus:ring-2 focus:ring-[#6e83f7]/20 hover:border-white/20 text-lg font-medium text-white/90 placeholder:text-white/40"
-              />
-            </div>
+            
             <div className="group">
               <textarea 
                 name="message" 
