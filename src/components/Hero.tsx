@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Zap } from 'lucide-react';
+import { ArrowRight, Zap, Smartphone } from 'lucide-react';
 import trackGrowthImg from '../assets/skaptixss/skaptixss/trackgorwth.jpg';
 
 const Hero = () => {
@@ -102,7 +102,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-6 animate-slideInUp delay-1000">
               <Link
                 to="/waitlist"
-                className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden"
+                className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden animate-gentle-bounce"
               >
                 <span className="relative z-10 flex items-center justify-center">
                   Join Waitlist
@@ -110,6 +110,12 @@ const Hero = () => {
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#A8B5DB] to-[#6e83f7] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </Link>
+
+              {/* Consolidated Availability Badge */}
+              <div className="flex items-center gap-3 px-5 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm animate-gentle-bounce">
+                <Smartphone className="w-5 h-5 text-white" aria-hidden="true" />
+                <span className="text-sm font-medium text-gray-300">Releasing on iOS & Web – January 2026</span>
+              </div>
             </div>
 
             {/* Stats */}

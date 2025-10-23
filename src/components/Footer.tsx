@@ -37,6 +37,12 @@ const Footer = () => {
                 About
               </Link>
               <Link
+                to="/faq"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                FAQs
+              </Link>
+              <Link
                 to="/contact"
                 className="text-gray-400 hover:text-white transition-colors"
               >

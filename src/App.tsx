@@ -4,6 +4,7 @@ import WaitlistPage from './pages/WaitlistPage.tsx';
 import AboutPage from './pages/AboutPage.tsx';
 import WaitlistPageSeller from './pages/WaitlistPageSeller.tsx';
 import Contact from './pages/Contact.tsx';
+import FaqPage from './pages/FaqPage.tsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/waitlist-seller" element={<WaitlistPageSeller />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/faq" element={<FaqPage />} />
     </Routes>
   );
 }

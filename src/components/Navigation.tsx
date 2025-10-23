@@ -111,6 +111,14 @@ const Navigation = () => {
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
                 </Link>
                 <Link
+                  to="/faq"
+                  onClick={handleMobileNavigate}
+                  className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
+                >
+                  FAQ
+                  <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
+                </Link>
+                <Link
                   to="/contact"
                   onClick={handleMobileNavigate}
                   className="text-white/80 hover:text-white transition-all duration-300 font-medium relative group px-2"
@@ -162,6 +170,13 @@ const Navigation = () => {
                     onClick={handleMobileNavigate}
                   >
                     About
+                  </Link>
+                  <Link
+                    to="/faq"
+                    className="block py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/2 transition-colors text-base"
+                    onClick={handleMobileNavigate}
+                  >
+                    FAQ
                   </Link>
                   <Link
                     to="/contact"

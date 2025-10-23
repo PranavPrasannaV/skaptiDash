@@ -498,7 +498,17 @@ a[class*="bg-"],
   75% { color: #6e83f7; }
 }
 
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
 .animate-float-card { animation: float-card 3s ease-in-out infinite; }
 .animate-pulse-heading { animation: pulse-heading 2.2s ease-in-out infinite; }
 .animate-slide-in-left { animation: slide-in-left 0.9s cubic-bezier(0.36, 0, 0.66, 1) both; }
 .animate-color-wave { animation: color-wave 2.8s ease-in-out infinite; }
+.animate-gentle-bounce { animation: gentle-bounce 2s ease-in-out infinite; }
