@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { FirebaseError } from 'firebase/app';
-import { collection, doc, getDoc, serverTimestamp, writeBatch } from 'firebase/firestore';
+// ...existing code...
 import { ArrowRight, CheckCircle2, Clock, Mail, Shield, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import { db } from '../lib/firebase';
+import { addBuyerToWaitlist } from '../lib/firebase';
 
 const WaitlistPage = () => {
   const [formData, setFormData] = useState({
@@ -52,140 +51,26 @@ const WaitlistPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (!formData.fullName || !formData.email) {
       setStatus('error');
-      setErrorMessage('Please provide your name and business email so we can reach out.');
+      setErrorMessage('Please provide your name and email so we can reach out.');
       return;
     }
-
     setIsSubmitting(true);
     setStatus('idle');
-  setErrorMessage(null);
-
+    setErrorMessage(null);
     try {
-      const waitlistRef = collection(db, 'waitlistRequests');
-
-      const normalizedFullName = formData.fullName.trim();
-      const normalizedEmail = formData.email.trim().toLowerCase();
-      const brandNameRaw = formData.brandName.trim();
-      const normalizedBrandName = brandNameRaw ? brandNameRaw.toLowerCase() : null;
-      const websiteRaw = formData.website.trim().replace(/\/$/, '');
-      const normalizedWebsite = websiteRaw ? websiteRaw.toLowerCase() : null;
-
-      const sanitizeKey = (value: string) =>
-        value
-          .replace(/^https?:\/\//, '')
-          .replace(/[^a-z0-9.-]/gi, '_');
-
-      const batch = writeBatch(db);
-
-      const waitlistDocRef = doc(waitlistRef);
-      batch.set(waitlistDocRef, {
-        fullName: normalizedFullName,
-        email: normalizedEmail,
-        brandName: brandNameRaw || null,
-        brandNameNormalized: normalizedBrandName,
-        website: websiteRaw || null,
-        websiteNormalized: normalizedWebsite,
-        source: 'skaptix-site',
-        submittedAt: serverTimestamp(),
+      await addBuyerToWaitlist({
+        fullName: formData.fullName.trim(),
+        email: formData.email.trim().toLowerCase(),
+        brandName: formData.brandName.trim(),
+        website: formData.website.trim()
       });
-
-      const emailIndexRef = doc(db, 'waitlistEmailIndex', sanitizeKey(normalizedEmail));
-      batch.set(emailIndexRef, {
-        waitlistId: waitlistDocRef.id,
-        createdAt: serverTimestamp(),
-      });
-
-      if (normalizedBrandName) {
-        const brandIndexRef = doc(db, 'waitlistBrandIndex', sanitizeKey(normalizedBrandName));
-        batch.set(brandIndexRef, {
-          waitlistId: waitlistDocRef.id,
-          brandName: brandNameRaw,
-          createdAt: serverTimestamp(),
-        });
-      }
-
-      if (normalizedWebsite) {
-        const websiteIndexRef = doc(db, 'waitlistWebsiteIndex', sanitizeKey(normalizedWebsite));
-        batch.set(websiteIndexRef, {
-          waitlistId: waitlistDocRef.id,
-          website: websiteRaw,
-          createdAt: serverTimestamp(),
-        });
-      }
-
-      await batch.commit();
-
       setStatus('success');
       setFormData({ fullName: '', email: '', brandName: '', website: '' });
-    } catch (error) {
-      console.error('Failed to submit waitlist request', error);
+    } catch (error: any) {
       setStatus('error');
-
-      if (error instanceof FirebaseError) {
-        if (error.code === 'permission-denied') {
-          const keyFor = (value: string) =>
-            value
-              .trim()
-              .replace(/^https?:\/\//, '')
-              .replace(/[^a-z0-9.-]/gi, '_')
-              .toLowerCase();
-
-          const emailIndexRef = doc(db, 'waitlistEmailIndex', keyFor(formData.email));
-          const brandIndexRef = formData.brandName.trim()
-            ? doc(db, 'waitlistBrandIndex', keyFor(formData.brandName))
-            : null;
-          const websiteIndexRef = formData.website.trim()
-            ? doc(db, 'waitlistWebsiteIndex', keyFor(formData.website.replace(/\/$/, '')))
-            : null;
-
-          try {
-            const [emailIndexSnap, brandIndexSnap, websiteIndexSnap] = await Promise.all([
-              getDoc(emailIndexRef),
-              brandIndexRef ? getDoc(brandIndexRef) : Promise.resolve(null),
-              websiteIndexRef ? getDoc(websiteIndexRef) : Promise.resolve(null)
-            ]);
-
-            if (emailIndexSnap.exists()) {
-              setErrorMessage('This email is already on the waitlist. We’ll be in touch soon!');
-              return;
-            }
-
-            if (brandIndexSnap && brandIndexSnap.exists()) {
-              setErrorMessage('This brand name has already been submitted. If you need changes, reach out to support@skaptix.com.');
-              return;
-            }
-
-            if (websiteIndexSnap && websiteIndexSnap.exists()) {
-              setErrorMessage('This site is already on the waitlist. If this is unexpected, contact support@skaptix.com.');
-              return;
-            }
-          } catch (lookupError) {
-            console.error('Failed to inspect waitlist indices for duplicates', lookupError);
-          }
-        }
-
-        switch (error.code) {
-          case 'permission-denied':
-            setErrorMessage('We could not save your request due to Firestore security rules. Please verify your Firebase rules allow creating waitlist entries.');
-            break;
-          case 'unavailable':
-            setErrorMessage('Firestore is temporarily unavailable. Please retry in a minute.');
-            break;
-          case 'invalid-argument':
-            setErrorMessage('The waitlist payload was rejected by Firestore. Double-check your Firebase project configuration.');
-            break;
-          case 'failed-precondition':
-            setErrorMessage('Your Firestore database is not yet fully initialized. Complete the setup in the Firebase console and try again.');
-            break;
-          default:
-            setErrorMessage(error.message || 'Something went wrong while saving your request. Please try again or email support@skaptix.com.');
-        }
-      } else {
-        setErrorMessage('Something went wrong while saving your request. Please try again or email support@skaptix.com.');
-      }
+      setErrorMessage(error.message || 'Something went wrong while saving your request. Please try again or email support@skaptix.com.');
     } finally {
       setIsSubmitting(false);
       updateCardsHeight();

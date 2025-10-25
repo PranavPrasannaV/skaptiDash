@@ -1,11 +1,50 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { addSellerToWaitlist } from '../lib/firebase';
 import { ArrowRight, CheckCircle2, Clock, Mail, Shield } from 'lucide-react';
 // Link not required on this page
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const WaitlistPageSeller = () => {
+  // --- Logic for seller waitlist form ---
+  const [form, setForm] = useState({
+    fullName: '',
+    brandName: '',
+    email: '',
+    website: '',
+    numItems: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess(false);
+    try {
+      await addSellerToWaitlist({
+        fullName: form.fullName,
+        brandName: form.brandName,
+        email: form.email,
+        website: form.website,
+        numItems: form.numItems ? Number(form.numItems) : undefined
+      });
+      setSuccess(true);
+      setForm({ fullName: '', brandName: '', email: '', website: '', numItems: '' });
+    } catch (err: any) {
+      setError(err.message || 'Submission failed.');
+    } finally {
+      setLoading(false);
+    }
+  }
   useEffect(() => {
     document.title = 'Seller Waitlist | Skaptix';
   }, []);
@@ -72,7 +111,7 @@ const WaitlistPageSeller = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-[#6e83f7]/10 via-transparent to-[#A8B5DB]/10 pointer-events-none" />
               <div className="relative">
                 <h2 className="text-2xl font-black mb-2">Seller Waitlist Form</h2>
-                <form className="space-y-5">
+                <form className="space-y-5" onSubmit={handleSubmit}>
                   <div className="space-y-2">
                     <label htmlFor="fullName" className="text-sm font-semibold text-gray-700">Full Name*</label>
                     <input
@@ -82,6 +121,8 @@ const WaitlistPageSeller = () => {
                       required
                       placeholder="Guy Broodney"
                       className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                      value={form.fullName}
+                      onChange={handleChange}
                     />
                   </div>
                   <div className="space-y-2">
@@ -95,6 +136,8 @@ const WaitlistPageSeller = () => {
                       required
                       placeholder="FashionCo LLC"
                       className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                      value={form.brandName}
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -111,6 +154,8 @@ const WaitlistPageSeller = () => {
                         required
                         placeholder="fashionco@email.com"
                         className="w-full rounded-2xl border border-gray-200 bg-white pl-11 pr-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                        value={form.email}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -125,6 +170,8 @@ const WaitlistPageSeller = () => {
                       type="text"
                       placeholder="https://fashionco.com"
                       className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                      value={form.website}
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -137,16 +184,26 @@ const WaitlistPageSeller = () => {
                       min="1"
                       placeholder="e.g. 10"
                       className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                      value={form.numItems}
+                      onChange={handleChange}
                     />
                   </div>
 
                   <button
                     type="submit"
                     className="w-full flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] px-6 py-2.5 text-base font-semibold text-white shadow-lg transition hover:shadow-xl hover:brightness-105"
+                    disabled={loading}
                   >
-                    Submit
+                    {loading ? 'Submitting...' : 'Submit'}
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </button>
+
+                  {success && (
+                    <p className="text-green-600 text-sm text-center mt-2">Submitted! We'll be in touch soon.</p>
+                  )}
+                  {error && (
+                    <p className="text-red-600 text-sm text-center mt-2">{error}</p>
+                  )}
 
                   <p className="text-xs text-gray-400 text-center">
                     By submitting this form you agree to receive seller waitlist updates and product news. You can opt out anytime.

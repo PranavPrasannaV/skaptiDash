@@ -1,31 +1,75 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+/**
+ * Adds a buyer to the buyerwaitlist collection in Firestore.
+ * @param buyerData - Object containing buyer info: fullName, email, brandName, website
+ */
+export async function addBuyerToWaitlist(buyerData: {
+  fullName: string;
+  email: string;
+  brandName?: string;
+  website?: string;
+}) {
+  // Normalize brandName and website for uniqueness (simple lowercasing)
+  const brandNameNormalized = buyerData.brandName?.toLowerCase() || '';
+  const websiteNormalized = buyerData.website?.toLowerCase() || '';
+  // Source can be set to 'buyer-waitlist-form' for tracking
+  const source = 'buyer-waitlist-form';
+  // submittedAt in ISO format
+  const submittedAt = new Date().toISOString();
+  return await addDoc(collection(db, "buyerwaitlist"), {
+    fullName: buyerData.fullName,
+    email: buyerData.email,
+    brandName: buyerData.brandName || '',
+    brandNameNormalized,
+    website: buyerData.website || '',
+    websiteNormalized,
+    source,
+    submittedAt
+  });
+}
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "demo-api-key",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "demo-project.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "demo-project",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "demo-project.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:123456789:web:demo",
+  apiKey: "AIzaSyASxZtLGgldtjwiQKzpnPAAeAjUDCkE4wY",
+  authDomain: "skaptixwaitlist.firebaseapp.com",
+  projectId: "skaptixwaitlist",
+  storageBucket: "skaptixwaitlist.firebasestorage.app",
+  messagingSenderId: "594355519065",
+  appId: "1:594355519065:web:fde09d0f021b2edc7bbb48",
+  measurementId: "G-1FZBLH82FQ"
 };
 
-// Only initialize Firebase if we have real configuration values
-const hasRealConfig = import.meta.env.VITE_FIREBASE_API_KEY && 
-                     import.meta.env.VITE_FIREBASE_PROJECT_ID;
-
-let app: any = null;
-let db: any = null;
-
-if (hasRealConfig) {
-  try {
-    app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-    db = getFirestore(app);
-  } catch (error) {
-    console.warn('Firebase initialization failed:', error);
-  }
-} else {
-  console.warn('Firebase not configured. Using demo mode.');
-}
-
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 export { db };
+import { collection, addDoc } from "firebase/firestore";
+
+/**
+ * Adds a seller to the waitlist collection in Firestore.
+ * @param sellerData - Object containing seller info: fullName, brandName, email, website, numItems
+ */
+export async function addSellerToWaitlist(sellerData: {
+  fullName: string;
+  brandName: string;
+  email: string;
+  website?: string;
+  numItems?: number;
+}) {
+  // Normalize brandName and website for uniqueness (simple lowercasing)
+  const brandNameNormalized = sellerData.brandName?.toLowerCase() || '';
+  const websiteNormalized = sellerData.website?.toLowerCase() || '';
+  // Source can be set to 'seller-waitlist-form' for tracking
+  const source = 'seller-waitlist-form';
+  // submittedAt in ISO format
+  const submittedAt = new Date().toISOString();
+  return await addDoc(collection(db, "waitlistRequests"), {
+    fullName: sellerData.fullName,
+    email: sellerData.email,
+    brandName: sellerData.brandName,
+    brandNameNormalized,
+    website: sellerData.website || '',
+    websiteNormalized,
+    source,
+    submittedAt
+  });
+}
