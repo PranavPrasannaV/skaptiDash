@@ -4,12 +4,12 @@
 
 const CallToAction = () => {
   return (
-    <section className="bg-gradient-to-b from-black/60 to-transparent py-20">
+    <section className="bg-white py-20">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="rounded-3xl border border-white/6 bg-black/60 p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="rounded-3xl bg-black text-white p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-bold">Reach Everyone, With Skaptix</h2>
-            <p className="mt-3 text-slate-300 max-w-xl">Join our waitlist to get started.</p>
+            <p className="mt-3 text-gray-300 max-w-xl">Join our waitlist to start selling.</p>
           </div>
 
           <div className="flex-shrink-0">

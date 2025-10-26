@@ -57,9 +57,9 @@ const InteractiveDemo = () => {
           {/* Left Side - Demo Controls */}
           <div>
             <h2 className="text-5xl lg:text-6xl font-black text-gray-900 mb-8">
-              <span className="block">SEE IT IN</span>
+              <span className="block">FOR</span>
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB]">
-                ACTION
+                SELLERS
               </span>
             </h2>
             

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ShoppingBag, Heart, Users, RotateCcw, Zap, Globe, Share2, DollarSign } from 'lucide-react';
+import { ShoppingBag, Heart, Users, RotateCcw, Zap, Globe, Share2, DollarSign, CheckCircle } from 'lucide-react';
 import qualityClothingImg from '../assets/skaptixss/skaptixss/qualityclothing.jpg';
 import personalizedShoppingImg from '../assets/skaptixss/skaptixss/personalizedshopping.jpg';
 import uploadProductsImg from '../assets/skaptixss/skaptixss/uploadproducts.jpg';
@@ -30,8 +30,8 @@ const Features = () => {
     },
     {
       icon: Users,
-      title: "Own a Brand?",
-      description: "Reach new customers and grow your business with Skaptix. Create your brand profile, upload products, and manage your storefront. All from one simple dashboard. We handle checkout, logistics, and customer support, so you can focus on what matters most: designing and selling your products.",
+      title: "Social Media",
+      description: "Post on Skaptix, share your looks, connect with a community of fashion enthusiasts, and tag your favorite brands - all within our platform.",
       gradient: "from-[#6e83f7] to-[#A8B5DB]",
       delay: "0.4s"
     }
@@ -39,16 +39,16 @@ const Features = () => {
 
   const guarantees = [
     {
-      icon: Share2,
-      title: "Social Media",
-      description: "Post on Skaptix, share your looks, connect with a community of fashion enthusiasts, and tag your favorite brands - all within our platform.",
+      icon: CheckCircle,
+      title: "Guaranteed Quality",
+      description: "Shop with confidence knowing that every item on Skaptix is vetted before approval. Each brand undergoes a thorough verification process to ensure product authenticity and quality.",
       color: "#6e83f7"
     },
     {
       icon: RotateCcw,
       title: "Hassle-Free Returns",
       description: "Shop with peace of mind. Our 30-day free return policy ensures you can easily exchange or refund items that don't meet your expectations.",
-      color: "#A8B5DB"
+      color: "#6e83f7"
     },
     {
       icon: DollarSign,
@@ -146,7 +146,7 @@ const Features = () => {
                           <img src={qualityClothingImg} alt="Countless Options" className="w-full h-full object-contain block mx-auto" />
                         ) : feature.title === 'Tailored To You' ? (
                           <img src={personalizedShoppingImg} alt="Tailored To You" className="w-full h-full object-contain block mx-auto" />
-                        ) : feature.title === 'Own a Brand?' ? (
+                        ) : feature.title === 'Social Media' ? (
                           <img src={uploadProductsImg} alt="Upload Products" className="w-full h-full object-contain block mx-auto" />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-[#6e83f7]/20 to-[#A8B5DB]/20 relative rounded-3xl overflow-hidden">
