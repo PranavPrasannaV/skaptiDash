@@ -5,6 +5,7 @@ import { sendContactEmail } from '../lib/email';
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', website: '', message: '' });
+  const [errors, setErrors] = useState<{ email?: string }>({});
   const [sending, setSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [statusError, setStatusError] = useState(false);
@@ -15,7 +16,26 @@ const Contact = () => {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    // Live-validate email as user types (clears error once valid)
+    if (name === 'email') {
+      const emailErr = validateEmail(value);
+      setErrors((prev) => ({ ...prev, email: emailErr }));
+    }
+  };
+
+  const validateEmail = (value: string) => {
+    if (!value) return 'Please enter your email address.';
+    // Basic RFC5322-lite email pattern: some@domain.tld
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    return emailRegex.test(value) ? '' : 'Please enter a valid email address.';
+  };
+
+  const handleEmailBlur = () => {
+    const emailErr = validateEmail(form.email);
+    setErrors((prev) => ({ ...prev, email: emailErr }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,9 +44,11 @@ const Contact = () => {
     setStatusError(false);
 
     // Basic validation
-    if (!form.email || !form.message) {
+    const emailErr = validateEmail(form.email);
+    if (emailErr || !form.message) {
+      setErrors((prev) => ({ ...prev, email: emailErr }));
       setStatusError(true);
-      setStatusMessage('Please provide your email and a message.');
+      setStatusMessage(emailErr || 'Please provide your email and a message.');
       return;
     }
 
@@ -83,14 +105,28 @@ const Contact = () => {
                   className="w-full rounded-xl p-4 bg-transparent border border-white/10 transition-all duration-300 focus:border-[#6e83f7]/50 focus:ring-2 focus:ring-[#6e83f7]/20 hover:border-white/20 text-lg font-medium text-white/90 placeholder:text-white/40"
                 />
               </div>
-              <div className="group">
-                <input 
-                  name="email" 
-                  value={form.email} 
-                  onChange={handleChange} 
-                  placeholder="Email" 
-                  className="w-full rounded-xl p-4 bg-transparent border border-white/10 transition-all duration-300 focus:border-[#6e83f7]/50 focus:ring-2 focus:ring-[#6e83f7]/20 hover:border-white/20 text-lg font-medium text-white/90 placeholder:text-white/40"
+              <div className="group w-full">
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  onBlur={handleEmailBlur}
+                  autoComplete="email"
+                  placeholder="Email"
+                  aria-invalid={errors.email ? 'true' : 'false'}
+                  aria-describedby={errors.email ? 'email-error' : undefined}
+                  className={`w-full rounded-xl p-4 bg-transparent border transition-all duration-300 text-lg font-medium placeholder:text-white/40 ${
+                    errors.email
+                      ? 'border-red-500/70 focus:border-red-400 focus:ring-2 focus:ring-red-400/30'
+                      : 'border-white/10 focus:border-[#6e83f7]/50 focus:ring-2 focus:ring-[#6e83f7]/20 hover:border-white/20'
+                  } text-white/90`}
                 />
+                {errors.email && (
+                  <p id="email-error" className="mt-2 text-sm text-red-400">
+                    {errors.email}
+                  </p>
+                )}
               </div>
             </div>
             <div className="group">
