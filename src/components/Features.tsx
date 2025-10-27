@@ -17,7 +17,7 @@ const Features = () => {
     {
       icon: ShoppingBag,
       title: "Countless Options",
-      description: "Browse a diverse range of clothing from around the world. Modern suits and casual wear to traditional Japanese kimonos and Indian saris. Any & all styles together, in one place, making it easy to find pieces that fit your taste and culture.",
+      description: "Imagine Lululemon, Nike, Zara, Adidas, Under Armor, and Levis in one place. Our marketplace is meant for all brands to sell in one place, making it easy to find clothes, return them, track them, and more.",
       gradient: "from-[#6e83f7] to-[#8B93FF]",
       delay: "0s"
     },
