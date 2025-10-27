@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Zap, Smartphone } from 'lucide-react';
-import trackGrowthImg from '../assets/skaptixss/skaptixss/trackgorwth.jpg';
+import { ArrowRight, Smartphone } from 'lucide-react';
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
+  const [currentCategory, setCurrentCategory] = useState(0);
+  
+  const categories = ['Everything', 'Every Brand', 'All Fashion', 'Any Style', 'Every Trend'];
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -24,6 +26,14 @@ const Hero = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentCategory((prev) => (prev + 1) % categories.length);
+    }, 2500);
+    
+    return () => clearInterval(interval);
+  }, [categories.length]);
 
   return (
     <section className="min-h-screen relative overflow-hidden bg-black">
@@ -72,13 +82,8 @@ const Hero = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 pt-32 pb-20">
-        {/* Diagonal Layout */}
-        <div className="grid grid-cols-12 gap-8 items-center min-h-[80vh]">
-          {/* Left Content - Spans 7 columns */}
-          <div className="col-span-12 lg:col-span-7 relative z-10">
-            {/* Floating Badge */}
-            
-
+        <div className="flex items-center justify-center min-h-[80vh]">
+          <div className="relative z-10 text-center max-w-4xl">
             {/* Revolutionary Title */}
             <div className="mb-10">
               <h1 className="text-6xl lg:text-8xl font-black leading-none mb-6">
@@ -92,14 +97,37 @@ const Hero = () => {
                   MARKETPLACE
                 </span>
               </h1>
+              
+              {/* Animated Category Carousel */}
+              <div className="flex items-center justify-center gap-1 text-2xl lg:text-3xl font-bold mt-8">
+                <span className="text-gray-400">FOR</span>
+                <div className="relative h-12 lg:h-14 overflow-hidden w-48 lg:w-64">
+                  {categories.map((category, index) => (
+                    <div
+                      key={category}
+                      className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
+                        index === currentCategory
+                          ? 'translate-y-0 opacity-100'
+                          : index < currentCategory
+                          ? '-translate-y-full opacity-0'
+                          : 'translate-y-full opacity-0'
+                      }`}
+                    >
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB]">
+                        {category}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed max-w-2xl animate-slideInUp delay-800">
+            <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed animate-slideInUp delay-800">
               Discover thousands of trusted fashion brands in one seamless platform. Verified sellers, unified shipping, and free, easy returns.
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 animate-slideInUp delay-1000">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slideInUp delay-1000">
               <Link
                 to="/waitlist"
                 className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden animate-gentle-bounce"
@@ -116,100 +144,6 @@ const Hero = () => {
                 <Smartphone className="w-5 h-5 text-white" aria-hidden="true" />
                 <span className="text-sm font-medium text-gray-300">Releasing on iOS & Web – January 2026</span>
               </div>
-            </div>
-
-            {/* Stats */}
-            <div className="flex gap-12 mt-16 animate-slideInUp delay-1200" style={{ display: 'none' }}>
-              <div className="text-center">
-                <div className="text-4xl font-black text-white mb-2">2.5K+</div>
-                <div className="text-[#A8B5DB] font-medium">Small Brands</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-black text-white mb-2">850K+</div>
-                <div className="text-[#A8B5DB] font-medium">Products</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-black text-white mb-2">99.2%</div>
-                <div className="text-[#A8B5DB] font-medium">Success Rate</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Visual - Spans 5 columns */}
-          <div className="col-span-12 lg:col-span-5 relative">
-            {/* 3D Card Stack */}
-            <div className="relative h-96 lg:h-[500px] flex justify-center">
-              {/* Card 1 - Back */}
-              <div 
-                className="absolute w-[65%] h-full bg-gradient-to-br from-[#6e83f7]/90 to-[#A8B5DB]/90 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl transform rotate-6 scale-95"
-                style={{
-                  transform: `rotate(6deg) scale(0.95) translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
-                }}
-              >
-                <div className="p-8 h-full flex flex-col justify-between">
-                  <div>
-                    <div className="w-12 h-12 bg-white/20 rounded-xl mb-4 flex items-center justify-center">
-                      <Zap className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-white font-bold text-xl mb-2">Brand Analytics</h3>
-                    <p className="text-white/80 text-sm">Real-time insights into your brand performance</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-white/60 text-xs">
-                      <span>Sales Growth</span>
-                      <span>+247%</span>
-                    </div>
-                    <div className="w-full bg-white/20 rounded-full h-2">
-                      <div className="bg-white rounded-full h-2 w-3/4" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2 - Middle */}
-              <div 
-                className="absolute w-[65%] h-full bg-gradient-to-br from-white/95 to-gray-100/95 backdrop-blur-xl rounded-3xl border border-white/40 shadow-2xl transform rotate-3 scale-98"
-                style={{
-                  transform: `rotate(3deg) scale(0.98) translate(${mousePosition.x * -0.008}px, ${mousePosition.y * -0.008}px)`
-                }}
-              >
-                <div className="p-8 h-full flex flex-col justify-between">
-                  <div>
-                    <div className="w-full h-32 bg-gradient-to-br from-[#6e83f7] to-[#A8B5DB] rounded-2xl mb-4 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-black/10" />
-                      <div className="absolute bottom-3 left-3 text-white">
-                        <div className="text-xs opacity-80">Featured Collection</div>
-                        <div className="font-semibold">Urban Essentials</div>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="font-bold text-gray-900">Premium Hoodie</div>
-                        <div className="text-[#6e83f7] font-bold text-lg">$89</div>
-                      </div>
-                      <button className="bg-[#6e83f7] text-white p-2 rounded-xl hover:bg-[#5a6ff3] transition-colors">
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3 - Front */}
-              <div 
-                className="absolute w-[65%] h-full bg-gradient-to-br from-white to-gray-50 backdrop-blur-xl rounded-3xl border border-white/60 shadow-2xl transform hover:rotate-0 transition-transform duration-500"
-                style={{
-                  transform: `rotate(-2deg) translate(${mousePosition.x * 0.005}px, ${mousePosition.y * 0.005}px)`
-                }}
-              >
-                <div className="p-4 h-full">
-                  <div className="h-[480px] w-[240px] rounded-3xl overflow-hidden bg-gray-100 mx-auto">
-                    <img src={trackGrowthImg} alt="Track Your Growth" className="w-full h-full object-cover rounded-3xl" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating badges removed per request */}
             </div>
           </div>
         </div>
