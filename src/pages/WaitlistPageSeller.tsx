@@ -30,13 +30,14 @@ const WaitlistPageSeller = () => {
     setError('');
     setSuccess(false);
     try {
-      await addSellerToWaitlist({
+      const payload = {
         fullName: form.fullName,
         brandName: form.brandName,
         email: form.email,
         website: form.website,
         numItems: form.numItems ? Number(form.numItems) : undefined
-      });
+      };
+  await addSellerToWaitlist(payload);
       setSuccess(true);
       setForm({ fullName: '', brandName: '', email: '', website: '', numItems: '' });
     } catch (err: any) {

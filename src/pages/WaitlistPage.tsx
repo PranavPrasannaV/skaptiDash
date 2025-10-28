@@ -10,7 +10,7 @@ const WaitlistPage = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    brandName: '',
+    shoppingHabits: '',
     website: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +31,7 @@ const WaitlistPage = () => {
 
   useLayoutEffect(() => {
     updateCardsHeight();
-  }, [status, formData.fullName, formData.email, formData.brandName, formData.website, isSubmitting, updateCardsHeight]);
+  }, [status, formData.fullName, formData.email, formData.shoppingHabits, formData.website, isSubmitting, updateCardsHeight]);
 
   // Set page title
   useEffect(() => {
@@ -60,14 +60,15 @@ const WaitlistPage = () => {
     setStatus('idle');
     setErrorMessage(null);
     try {
-      await addBuyerToWaitlist({
+      const payload = {
         fullName: formData.fullName.trim(),
-        email: formData.email.trim().toLowerCase(),
-        brandName: formData.brandName.trim(),
-        website: formData.website.trim()
-      });
+        email: formData.email.trim(),
+        shoppingHabits: formData.shoppingHabits.trim(),
+        website: formData.website.trim(),
+      };
+  await addBuyerToWaitlist(payload);
       setStatus('success');
-      setFormData({ fullName: '', email: '', brandName: '', website: '' });
+      setFormData({ fullName: '', email: '', shoppingHabits: '', website: '' });
     } catch (error: any) {
       setStatus('error');
       setErrorMessage(error.message || 'Something went wrong while saving your request. Please try again or email support@skaptix.com.');
@@ -95,6 +96,93 @@ const WaitlistPage = () => {
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight animate-pulse-heading">
                   Show us Your Interest
                 </h1>
+
+                {/* Mobile-first: Waitlist form directly under the heading */}
+                <div className="lg:hidden">
+                  <div className="bg-white text-gray-900 rounded-3xl p-6 shadow-2xl border border-white/20 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#6e83f7]/10 via-transparent to-[#A8B5DB]/10 pointer-events-none" />
+                    <div className="relative">
+                      <h2 className="text-2xl font-black mb-2">Join the waitlist</h2>
+                      
+                      <form className="space-y-5" onSubmit={handleSubmit}>
+                        <div className="space-y-2">
+                          <label htmlFor="fullName" className="text-sm font-semibold text-gray-700">
+                            Full Name*
+                          </label>
+                          <input
+                            id="fullName"
+                            name="fullName"
+                            type="text"
+                            required
+                            value={formData.fullName}
+                            onChange={handleChange}
+                            placeholder="Rufus Houndstooth"
+                            className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label htmlFor="email" className="text-sm font-semibold text-gray-700">
+                             Email*
+                          </label>
+                          <div className="relative">
+                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                            <input
+                              id="email"
+                              name="email"
+                              type="email"
+                              required
+                              value={formData.email}
+                              onChange={handleChange}
+                              placeholder="rufus@randomstuff.com"
+                              className="w-full rounded-2xl border border-gray-200 bg-white pl-11 pr-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label htmlFor="brandName" className="text-sm font-semibold text-gray-700">
+                            How do you usually shop online?
+                          </label>
+                          <input
+                            id="shoppingHabits"
+                            name="shoppingHabits"
+                            type="text"
+                            value={formData.shoppingHabits}
+                            onChange={handleChange}
+                            placeholder="Tiktok, Instragram, Brand Websites..."
+                            className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
+                          />
+                        </div>
+
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] px-6 py-2.5 text-base font-semibold text-white shadow-lg transition hover:shadow-xl hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70"
+                        >
+                          {isSubmitting ? 'Joining waitlist…' : 'Submit'}
+                          {!isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
+                        </button>
+
+                        {status === 'success' && (
+                          <p className="rounded-2xl border border-green-200 bg-green-50 px-4 py-2.5 text-sm font-medium text-green-700">
+                            You&apos;re on the list. We&apos;ll reach out when Skaptix is ready for you.
+                          </p>
+                        )}
+
+                        {status === 'error' && (
+                          <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600">
+                            {errorMessage}
+                          </p>
+                        )}
+
+                        <p className="text-xs text-gray-400 text-center">
+                          By submitting this form you agree to receive waitlist updates and product news. You can opt out anytime.
+                        </p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
 
 
               </div>
@@ -143,7 +231,7 @@ const WaitlistPage = () => {
 
             <div
               ref={formContainerRef}
-              className="bg-white text-gray-900 rounded-3xl p-6 shadow-2xl border border-white/20 relative overflow-hidden h-full"
+              className="bg-white text-gray-900 rounded-3xl p-6 shadow-2xl border border-white/20 relative overflow-hidden h-full hidden lg:block"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#6e83f7]/10 via-transparent to-[#A8B5DB]/10 pointer-events-none" />
               <div className="relative">
@@ -188,13 +276,13 @@ const WaitlistPage = () => {
 
                   <div className="space-y-2">
                     <label htmlFor="brandName" className="text-sm font-semibold text-gray-700">
-                      How do you usually shop online?
+                            How do you usually shop online?
                     </label>
                     <input
-                      id="brandName"
-                      name="brandName"
+                            id="shoppingHabits"
+                            name="shoppingHabits"
                       type="text"
-                      value={formData.brandName}
+                            value={formData.shoppingHabits}
                       onChange={handleChange}
                       placeholder="Tiktok, Instragram, Brand Websites..."
                       className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-base shadow focus:border-[#6e83f7] focus:outline-none focus:ring-2 focus:ring-[#6e83f7]/30 transition"
