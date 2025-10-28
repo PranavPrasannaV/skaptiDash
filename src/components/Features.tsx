@@ -17,7 +17,7 @@ const Features = () => {
     {
       icon: ShoppingBag,
       title: "Countless Options",
-      description: "Imagine Lululemon, Nike, Zara, Adidas, Under Armor, and Levis in one place. Our marketplace is meant for all brands to sell in one place, making it easy to find clothes, return them, track them, and more.",
+      description: "Imagine Lululemon, Nike, Zara, Adidas, Under Armor, and Levis in one place. Our marketplace is meant for all brands to sell on one app, making it easy to find clothes, return them, track them, and more.",
       gradient: "from-[#6e83f7] to-[#8B93FF]",
       delay: "0s"
     },
