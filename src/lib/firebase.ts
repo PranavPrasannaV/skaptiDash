@@ -1,58 +1,5 @@
-/**
- * Adds a buyer to the buyerwaitlist collection in Firestore.
- * @param buyerData - Object containing buyer info: fullName, email, brandName, website
- */
-export async function addBuyerToWaitlist(buyerData: {
-  fullName: string;
-  email: string;
-  shoppingHabits?: string;
-  website?: string;
-}) {
-  // Normalize fields
-  const emailLower = buyerData.email?.trim().toLowerCase();
-  const shoppingHabitsNormalized = buyerData.shoppingHabits?.toLowerCase() || '';
-  const websiteNormalized = buyerData.website?.toLowerCase() || '';
-  const source = 'buyer-waitlist-form';
-  const submittedAt = new Date().toISOString();
-
-  // Dedupe by emailLower: if exists, update; otherwise create new
-  const colRef = collection(db, 'buyerwaitlist');
-  const q = query(colRef, where('emailLower', '==', emailLower));
-  const snap = await getDocs(q);
-  if (!snap.empty) {
-    const docRef = snap.docs[0].ref;
-    await setDoc(
-      docRef,
-      {
-        fullName: buyerData.fullName,
-        email: emailLower,
-        emailLower,
-        shoppingHabits: buyerData.shoppingHabits || '',
-        shoppingHabitsNormalized,
-        website: buyerData.website || '',
-        websiteNormalized,
-        source,
-        submittedAt,
-        updatedAt: submittedAt,
-      },
-      { merge: true }
-    );
-    return docRef;
-  }
-  return await addDoc(colRef, {
-    fullName: buyerData.fullName,
-    email: emailLower,
-    emailLower,
-    shoppingHabits: buyerData.shoppingHabits || '',
-    shoppingHabitsNormalized,
-    website: buyerData.website || '',
-    websiteNormalized,
-    source,
-    submittedAt,
-  });
-}
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, query, where, getDocs, setDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyASxZtLGgldtjwiQKzpnPAAeAjUDCkE4wY",
@@ -67,6 +14,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export { db };
+
+/**
+ * Adds a buyer to the buyerwaitlist collection in Firestore.
+ * @param buyerData - Object containing buyer info: fullName, email, brandName, website
+ */
+export async function addBuyerToWaitlist(buyerData: {
+  fullName: string;
+  email: string;
+  brandName?: string;
+  website?: string;
+}) {
+  // Normalize brandName and website for uniqueness (simple lowercasing)
+  const brandNameNormalized = buyerData.brandName?.toLowerCase() || '';
+  const websiteNormalized = buyerData.website?.toLowerCase() || '';
+  // Source can be set to 'buyer-waitlist-form' for tracking
+  const source = 'buyer-waitlist-form';
+  // submittedAt in ISO format
+  const submittedAt = new Date().toISOString();
+  return await addDoc(collection(db, "buyerwaitlist"), {
+    fullName: buyerData.fullName,
+    email: buyerData.email,
+    brandName: buyerData.brandName || '',
+    brandNameNormalized,
+    website: buyerData.website || '',
+    websiteNormalized,
+    source,
+    submittedAt
+  });
+}
 
 /**
  * Adds a seller to the waitlist collection in Firestore.
