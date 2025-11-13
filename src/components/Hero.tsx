@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Smartphone } from 'lucide-react';
+import { ArrowRight, Smartphone, Instagram } from 'lucide-react';
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -144,10 +144,30 @@ const Hero = () => {
                 <Smartphone className="w-5 h-5 text-white" aria-hidden="true" />
                 <span className="text-sm font-medium text-gray-300">Releasing on iOS & Web – January 2026</span>
               </div>
+
+              {/* Instagram button moved to right-edge tab */}
             </div>
           </div>
         </div>
       </div>
+      {/* Floating Instagram button (mobile + desktop) */}
+      <a
+        href="https://instagram.com/skaptix"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Follow Skaptix on Instagram"
+        title="Follow Skaptix on Instagram"
+        className="fixed z-50 bottom-4 right-4 md:bottom-8 md:right-8"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <div className="relative">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#6e83f7] to-[#A8B5DB] opacity-60 blur-md md:opacity-70" />
+          <div className="relative flex items-center text-white border border-white/15 backdrop-blur rounded-full w-12 h-12 md:w-auto md:h-auto md:px-4 md:py-3 bg-white/10 hover:bg-white/15 transition shadow-lg">
+            <Instagram className="w-5 h-5 mx-auto md:mx-0" />
+            <span className="hidden md:inline ml-3 text-sm font-semibold tracking-wide">Follow us</span>
+          </div>
+        </div>
+      </a>
     </section>
   );
 };

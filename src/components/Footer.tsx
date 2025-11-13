@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react';
+import { Heart, Instagram, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -62,6 +62,29 @@ const Footer = () => {
           <p className="text-gray-400 flex items-center justify-center">
             Made with <Heart className="w-4 h-4 text-red-500 mx-1" /> by the Skaptix Team
           </p>
+          {/* Social follow */}
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <a
+              href="https://instagram.com/skaptix"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow Skaptix on Instagram"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors"
+              title="Instagram"
+            >
+              <Instagram className="w-5 h-5 text-white" />
+            </a>
+            <a
+              href="https://twitter.com/skaptixclo"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow Skaptix on Twitter"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors"
+              title="Twitter"
+            >
+              <Twitter className="w-5 h-5 text-white" />
+            </a>
+          </div>
           <p className="text-gray-500 text-sm mt-2">
             © 2025 Skaptix Technologies LLC. All rights reserved.
           </p>
