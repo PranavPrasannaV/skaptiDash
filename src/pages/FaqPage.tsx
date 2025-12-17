@@ -22,7 +22,7 @@ const FaqPage = () => {
     },
     {
       question: 'When will Skaptix launch?',
-      answer: 'Skaptix is launching on both iOS and Web in January 2026. Join our waitlist to be the first to know when we go live and get early access to exclusive features.',
+      answer: 'Skaptix is launching on both iOS and Android in January 2026. Join our waitlist to be the first to know when we go live and get early access to exclusive features.',
     },
     {
       question: 'How does shipping work?',
@@ -54,7 +54,7 @@ const FaqPage = () => {
     },
     {
       question: 'What makes Skaptix different from other marketplaces?',
-      answer: 'Unlike other platforms, Skaptix uses AI to pool products from all fashion brands and show you exactly what matches your style. We combine shopping with social discovery - see what others are wearing, earn money through affiliate links, and build a community around fashion. For sellers, we offer a no-monthly-fee model with flexible surge pricing instead of expensive ad campaigns. Everything you need to discover, share, and shop fashion is in one place.',
+      answer: 'Unlike other platforms, Skaptix is the first unified fashion only marketplace. We then use AI to pool products from all fashion brands and show you exactly what matches your style. We combine shopping with social discovery - see what others are wearing, earn money through affiliate links, and build a community around fashion. For sellers, we offer a no-monthly-fee model with flexible surge pricing instead of expensive ad campaigns. Everything you need to discover, share, and shop fashion is in one place.',
     },
   ];
 
