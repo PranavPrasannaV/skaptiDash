@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ShoppingBag, Heart, Users, RotateCcw, Zap, Globe, Share2, DollarSign, CheckCircle } from 'lucide-react';
 import qualityClothingImg from '../assets/skaptixss/skaptixss/qualityclothing.jpg';
-import personalizedShoppingImg from '../assets/skaptixss/skaptixss/personalizedshopping.jpg';
-import uploadProductsImg from '../assets/skaptixss/skaptixss/uploadproducts.jpg';
+import shopVideo from '../assets/skaptixss/skaptixss/shopvideo.mp4';
+import socialMediaImg from '../assets/skaptixss/skaptixss/socialmedia.jpg';
 
 const Features = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -17,7 +17,7 @@ const Features = () => {
     {
       icon: ShoppingBag,
       title: "Countless Options",
-      description: "Imagine Lululemon, Nike, Zara, Adidas, Under Armor, and Levis in one place. Our marketplace is meant for all brands to sell on one app, making it easy to find clothes, return them, track them, and more.",
+      description: "Imagine Lululemon, Nike, Zara, Adidas, Under Armor, and all your favorite brands in one place. Our marketplace is meant for all brands to sell on one app, making it easy to find clothes, return them, track them, and more.",
       gradient: "from-[#6e83f7] to-[#8B93FF]",
       delay: "0s"
     },
@@ -30,8 +30,8 @@ const Features = () => {
     },
     {
       icon: Users,
-      title: "Social Media",
-      description: "Post on Skaptix, share your looks, connect with a community of fashion enthusiasts, and tag your favorite brands - all within our platform.",
+      title: "Community Hub",
+      description: "Post on Skaptix, share your looks, connect with a community of fashion enthusiasts, and tag your favorite brands to earn affiliate payouts - all within our platform.",
       gradient: "from-[#6e83f7] to-[#A8B5DB]",
       delay: "0.4s"
     }
@@ -145,9 +145,9 @@ const Features = () => {
                         {feature.title === 'Countless Options' ? (
                           <img src={qualityClothingImg} alt="Countless Options" className="w-full h-full object-contain block mx-auto" />
                         ) : feature.title === 'Tailored To You' ? (
-                          <img src={personalizedShoppingImg} alt="Tailored To You" className="w-full h-full object-contain block mx-auto" />
-                        ) : feature.title === 'Social Media' ? (
-                          <img src={uploadProductsImg} alt="Upload Products" className="w-full h-full object-contain block mx-auto" />
+                          <video src={shopVideo} className="w-full h-full object-contain block mx-auto" autoPlay muted loop playsInline />
+                        ) : feature.title === 'Community Hub' ? (
+                          <img src={socialMediaImg} alt="Community Hub" className="w-full h-full object-contain block mx-auto" />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-[#6e83f7]/20 to-[#A8B5DB]/20 relative rounded-3xl overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />

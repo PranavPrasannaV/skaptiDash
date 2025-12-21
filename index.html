@@ -30,6 +30,7 @@
     <meta property="twitter:title" content="Skaptix - One marketplace for everything fashion." />
     <meta property="twitter:description" content="Discover thousands of trusted fashion brands in one seamless platform. Verified sellers, unified shipping, and free, easy returns." />
     <meta property="twitter:image" content="https://www.skaptix.com/og-image.png" />
+    <link rel="preload" as="image" href="/og-image.png" />
     <style>
       /* Critical inline styles to prevent color override */
       * {
@@ -66,6 +67,33 @@
         forced-color-adjust: none !important;
       }
     </style>
+    <!-- Google site verification: replace the content value with your token -->
+    <meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_TOKEN" />
+
+    <!-- Structured Data: Organization + Website -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "name": "Skaptix",
+            "url": "https://www.skaptix.com",
+            "logo": "https://www.skaptix.com/og-image.png"
+          },
+          {
+            "@type": "WebSite",
+            "url": "https://www.skaptix.com",
+            "name": "Skaptix",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.skaptix.com/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body style="background: #000 !important; color: #fff !important; forced-color-adjust: none !important;">
     <div id="root"></div>
