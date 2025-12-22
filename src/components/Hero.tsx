@@ -7,7 +7,7 @@ const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [currentCategory, setCurrentCategory] = useState(0);
   
-  const categories = ['Everything', 'Every Brand', 'All Fashion', 'Any Style', 'Every Trend'];
+  const categories = ['Every Brand', 'All Fashion', 'Every Style', 'Every Trend'];
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -91,7 +91,7 @@ const Hero = () => {
                   THE
                 </span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] animate-slideInUp delay-400">
-                  ONLY
+                  FASHION
                 </span>
                 <span className="block text-white/80 text-4xl lg:text-6xl font-light animate-slideInUp delay-600">
                   MARKETPLACE
@@ -142,7 +142,7 @@ const Hero = () => {
               {/* Consolidated Availability Badge */}
               <div className="flex items-center gap-3 px-5 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm animate-gentle-bounce">
                 <Smartphone className="w-5 h-5 text-white" aria-hidden="true" />
-                <span className="text-sm font-medium text-gray-300">Releasing on iOS & Web – January 2026</span>
+                <span className="text-sm font-medium text-gray-300">Releasing on iOS & Android – January 2026</span>
               </div>
 
               {/* Instagram button moved to right-edge tab */}
