@@ -17,7 +17,7 @@ const Features = () => {
     {
       icon: ShoppingBag,
       title: "Countless Options",
-      description: "Imagine Lululemon, Nike, Zara, Adidas, Under Armor, and all your favorite brands in one place. Our marketplace is meant for all brands to sell on one app, making it easy to find clothes, return them, track them, and more.",
+      description: "Discover a vast array of clothing brands in one app. Skaptix brings together brands of all genres and sizes, so you can shop any style.",
       gradient: "from-[#6e83f7] to-[#8B93FF]",
       delay: "0s"
     },
@@ -92,9 +92,7 @@ const Features = () => {
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Online fashion is fragmented.
-              Every brand has its own storefront, policies, and return process.
-              We’re building the first platform that unifies everything: one checkout, consistent service, total trust.
+              Skaptix is the first  fashion marketplace that brings together all types of clothing brands, from local boutiques and indie labels to well-known names, into one seamless shopping experience. No more hopping between websites, creating multiple accounts, or juggling confusing shipping and return policies. 
             </p>
           </div>
 
