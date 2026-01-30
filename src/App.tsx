@@ -6,6 +6,7 @@ import AboutPage from './pages/AboutPage.tsx';
 import WaitlistPageSeller from './pages/WaitlistPageSeller.tsx';
 import Contact from './pages/Contact.tsx';
 import FaqPage from './pages/FaqPage.tsx';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       </Routes>
     </>
   );

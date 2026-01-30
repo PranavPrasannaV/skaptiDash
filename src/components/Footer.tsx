@@ -54,6 +54,12 @@ const Footer = () => {
               >
                 Waitlist
               </Link>
+              <Link
+                to="/privacy-policy"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Privacy Policy
+              </Link>
             </div>
           </div>
         </div>
