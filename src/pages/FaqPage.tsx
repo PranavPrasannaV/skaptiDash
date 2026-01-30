@@ -84,8 +84,8 @@ const FaqPage = () => {
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Everything you need to know about Skaptix. Can't find what you're looking for? 
-              <a href="/contact" className="text-[#6e83f7] hover:text-[#A8B5DB] transition-colors ml-1">
-                Contact us
+              <a href="/support" className="text-[#6e83f7] hover:text-[#A8B5DB] transition-colors ml-1">
+                Get support
               </a>
               .
             </p>
@@ -135,10 +135,10 @@ const FaqPage = () => {
               Our team is here to help. Reach out and we'll get back to you as soon as possible.
             </p>
             <a
-              href="/contact"
+              href="/support"
               className="inline-block bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-300 transform hover:-translate-y-1"
             >
-              Contact Us
+              Get Support
             </a>
           </div>
         </div>

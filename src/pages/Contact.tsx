@@ -3,7 +3,7 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { sendContactEmail } from '../lib/email';
 
-const Contact = () => {
+const Support = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', website: '', message: '' });
   const [errors, setErrors] = useState<{ email?: string }>({});
   const [sending, setSending] = useState(false);
@@ -12,7 +12,7 @@ const Contact = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = 'Contact | Skaptix';
+    document.title = 'Support | Skaptix';
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -172,4 +172,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Support;

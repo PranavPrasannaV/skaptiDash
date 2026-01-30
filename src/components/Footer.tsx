@@ -43,10 +43,10 @@ const Footer = () => {
                 FAQs
               </Link>
               <Link
-                to="/contact"
+                to="/support"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Contact
+                Support
               </Link>
               <Link
                 to="/waitlist"

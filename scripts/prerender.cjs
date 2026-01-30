@@ -5,7 +5,7 @@ const path = require('path');
 const fetch = globalThis.fetch || require('node-fetch');
 
 // Routes to prerender (public marketing pages)
-const routes = ['/', '/about', '/faq', '/contact', '/waitlist', '/waitlist-seller'];
+const routes = ['/', '/about', '/faq', '/support', '/waitlist', '/waitlist-seller'];
 const PREVIEW_PORT = process.env.PREVIEW_PORT || 5173;
 const PREVIEW_URL = `http://localhost:${PREVIEW_PORT}`;
 

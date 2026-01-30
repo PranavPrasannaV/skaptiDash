@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const domain = process.env.SITE_DOMAIN || 'https://www.skaptix.com';
-const routes = ['/', '/about', '/faq', '/contact', '/waitlist', '/waitlist-seller'];
+const routes = ['/', '/about', '/faq', '/support', '/waitlist', '/waitlist-seller'];
 
 function isoDate(d = new Date()) {
   return d.toISOString().split('T')[0];
