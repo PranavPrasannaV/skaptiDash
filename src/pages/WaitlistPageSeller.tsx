@@ -1,17 +1,34 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { addSellerToWaitlist } from '../lib/firebase';
-import { ArrowRight, Mail, ShoppingBag, Users, Zap, Award, Lightbulb, Shield } from 'lucide-react';
+import { ChevronDown, ArrowRight, Mail } from 'lucide-react';
 // Link not required on this page
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const WaitlistPageSeller = () => {
   const formRef = useRef<HTMLDivElement>(null);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   function scrollToForm() {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsFormVisible(entry.isIntersecting);
+    }, { threshold: 0.1 });
+
+    if (formRef.current) {
+      observer.observe(formRef.current);
+    }
+
+    return () => {
+      if (formRef.current) {
+        observer.unobserve(formRef.current);
+      }
+    };
+  }, []);
 
   // --- Logic for seller waitlist form ---
   const [form, setForm] = useState({
@@ -62,10 +79,12 @@ const WaitlistPageSeller = () => {
       {/* Floating Mobile Button */}
       <button
         onClick={scrollToForm}
-        className="fixed bottom-8 right-6 md:hidden z-40 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white font-semibold py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition flex items-center gap-2 animate-bounce"
+        className={`fixed bottom-8 right-6 md:hidden z-40 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white font-semibold py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition flex items-center gap-2 animate-bounce ${
+          isFormVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
       >
         Join Waitlist
-        <ArrowRight className="w-4 h-4" />
+        <ChevronDown className="w-4 h-4" />
       </button>
 
       {/* Content & Form */}
@@ -105,11 +124,11 @@ const WaitlistPageSeller = () => {
                 <ul className="space-y-2">
                   {[
                     'Fashion-only marketplace with AI discovery',
-                    'Full brand control & profile ownership',
+                    'Skaptix is one app, but every user gets their own niche marketplace',
                     'Higher-intent shoppers, zero selling fees',
                     'White-glove onboarding & 24/7 support',
-                    'Skaptix is one app, but every user gets their own niche marketplace'
-                  ].map((item, idx) => (
+                    'Full brand control & profile ownership'
+                  ].map((item, idx) => (  
                     <li key={idx} className="flex gap-2 items-start text-sm text-white/70">
                       <span className="text-[#6e83f7]">✓</span>
                       <span>{item}</span>
