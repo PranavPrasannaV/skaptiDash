@@ -1,12 +1,18 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { addSellerToWaitlist } from '../lib/firebase';
-import { ArrowRight, CheckCircle2, Clock, Mail, Shield } from 'lucide-react';
+import { ArrowRight, Mail, ShoppingBag, Users, Zap, Award, Lightbulb, Shield } from 'lucide-react';
 // Link not required on this page
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const WaitlistPageSeller = () => {
+  const formRef = useRef<HTMLDivElement>(null);
+
+  function scrollToForm() {
+    formRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   // --- Logic for seller waitlist form ---
   const [form, setForm] = useState({
     fullName: '',
@@ -53,65 +59,91 @@ const WaitlistPageSeller = () => {
     <div className="min-h-screen bg-black text-white">
       <Navigation />
 
-      {/* Hero & Form */}
-      <main className="pt-32 pb-24">
-        <section className="max-w-6xl mx-auto px-6 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-            <div className="flex flex-col gap-8 h-full">
-              <div className="space-y-8">
-                <div className="inline-flex items-center bg-white/5 border border-white/10 rounded-full px-5 py-2 backdrop-blur">
-                  <span className="text-sm font-medium text-white/70">Seller Waitlist</span>
-                </div>
+      {/* Floating Mobile Button */}
+      <button
+        onClick={scrollToForm}
+        className="fixed bottom-8 right-6 md:hidden z-40 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white font-semibold py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition flex items-center gap-2 animate-bounce"
+      >
+        Join Waitlist
+        <ArrowRight className="w-4 h-4" />
+      </button>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight animate-color-wave">
+      {/* Content & Form */}
+      <main className="pt-40 pb-24">
+        <section className="max-w-7xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left: Brief Info */}
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <h1 className="text-4xl sm:text-5xl font-black leading-tight animate-color-wave">
                   Sell on Skaptix
                 </h1>
+                <p className="text-lg text-white/70">Skaptix personalizes the marketplace itself. If someone loves streetwear, their entire feed, brands, and discovery experience becomes a streetwear marketplace. Same app — different experience per user.</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left items-start">
-                {[
-                  {
-                    icon: CheckCircle2,
-                    title: 'Early Seller Access',
-                    description: 'Get priority onboarding as a Skaptix seller.'
-                  },
-                  {
-                    icon: Shield,
-                    title: 'Zero Selling Fees',
-                    description: 'First 50 sellers can sell for free. No selling fees.'
-                  },
-                  {
-                    icon: Clock,
-                    title: 'Direct Brand Support',
-                    description: 'Work with our team to optimize your launch.'
-                  }
-                ].map((item, idx) => (
-                  <div
-                    key={item.title}
-                    className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm hover:border-[#6e83f7]/50 transition-all duration-300 flex flex-col justify-start animate-slide-in-left"
-                    style={{ animationDelay: `${idx * 0.18 + 0.2}s` }}
-                  >
-                    <item.icon className="w-6 h-6 text-[#6e83f7] mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                    <p className="text-sm text-white/60 leading-relaxed">{item.description}</p>
-                  </div>
-                ))}
+              {/* Problem */}
+              <div className="space-y-3">
+                <h3 className="text-sm font-black text-white uppercase tracking-wider">The Problem</h3>
+                <ul className="space-y-2">
+                  {[
+                    'Discovery is fragmented across platforms',
+                    'Customer acquisition costs are skyrocketing',
+                    'Marketplaces dilute brand identity',
+                    'No fashion-only cross-brand shopping experience'
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex gap-2 items-start text-sm text-white/70">
+                      <span className="text-red-400">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              
-              <div className="mt-8 flex justify-start">
-                <a
-                  href="/waitlist"
-                  className="px-8 py-4 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white font-semibold shadow-lg hover:opacity-95 transition"
-                >
-                  Buyer Waitlist
-                </a>
+
+              {/* Solution */}
+              <div className="space-y-3">
+                <h3 className="text-sm font-black text-white uppercase tracking-wider">The Solution</h3>
+                <ul className="space-y-2">
+                  {[
+                    'Fashion-only marketplace with AI discovery',
+                    'Full brand control & profile ownership',
+                    'Higher-intent shoppers, zero selling fees',
+                    'White-glove onboarding & 24/7 support',
+                    'Skaptix is one app, but every user gets their own niche marketplace'
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex gap-2 items-start text-sm text-white/70">
+                      <span className="text-[#6e83f7]">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[#6e83f7] font-semibold text-sm pt-3 border-t border-white/10 mt-3">Our goal: Skaptix is the first place shoppers go for fashion.</p>
+              </div>
+
+              {/* Quick Benefits */}
+              <div className="space-y-3">
+                <h3 className="text-sm font-black text-white uppercase tracking-wider">Why Join</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { label: 'No Risk', desc: 'Zero upfront cost' },
+                    { label: 'Founding Badge', desc: 'Early recognition' },
+                    { label: 'Zero Fees', desc: 'Pilot program' },
+                    { label: 'Direct Support', desc: 'Dedicated team' }
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-white/5 border border-white/10 rounded-lg p-3">
+                      <p className="text-[#6e83f7] font-semibold text-xs">{item.label}</p>
+                      <p className="text-white/60 text-xs">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="bg-white text-gray-900 rounded-3xl p-6 shadow-2xl border border-white/20 relative overflow-hidden h-full">
+            {/* Right: Form */}
+            <div ref={formRef} className="bg-white text-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/20 relative overflow-hidden lg:sticky lg:top-32">
               <div className="absolute inset-0 bg-gradient-to-br from-[#6e83f7]/10 via-transparent to-[#A8B5DB]/10 pointer-events-none" />
               <div className="relative">
-                <h2 className="text-2xl font-black mb-2">Seller Waitlist Form</h2>
+                <h2 className="text-2xl font-black mb-2">Join the Seller Waitlist</h2>
+                <p className="text-gray-600 mb-6">Get early access and start selling on Skaptix</p>
                 <form className="space-y-5" onSubmit={handleSubmit}>
                   <div className="space-y-2">
                     <label htmlFor="fullName" className="text-sm font-semibold text-gray-700">Full Name*</label>
