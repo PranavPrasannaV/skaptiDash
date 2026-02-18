@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.balajip.skaptix",
+            "sha256_cert_fingerprints": [
+                "FA:C6:17:45:dc:09:03:78:6f:87:e9:74:35:b6:65:01:83:cf:89:13:95:f7:ca:3f:61:e7:28:cc:08:44:a2:81"
+            ]
+        }
+    }
+]

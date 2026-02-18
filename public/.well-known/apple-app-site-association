@@ -1,0 +1,15 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "U94Y35Z4CD.com.joshienterprises.skaptix",
+                "paths": [
+                    "/product/*",
+                    "/social/post/*",
+                    "/social/profile/*"
+                ]
+            }
+        ]
+    }
+}
