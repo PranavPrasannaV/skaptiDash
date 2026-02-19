@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Smartphone, User } from 'lucide-react';
+import * as constants from '../constants';
 
 const AppleLogo = ({ className }: { className?: string }) => (
     <svg
@@ -20,7 +21,7 @@ export default function ProfilePage() {
 
     // Configuration - Replace with your actual values
     const APP_SCHEME = `skaptix://social/profile/${id}`;
-    const APP_STORE_URL = 'https://apps.apple.com/us/app/skaptix/idYOUR_APP_ID';
+    const APP_STORE_URL = constants.APP_STORE_URL;
 
     useEffect(() => {
         const userAgent = navigator.userAgent || navigator.vendor;

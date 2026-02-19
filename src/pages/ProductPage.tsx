@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Smartphone, ShoppingBag } from 'lucide-react';
+import * as constants from '../constants';
 
 const AppleLogo = ({ className }: { className?: string }) => (
     <svg
@@ -20,7 +21,7 @@ export default function ProductPage() {
 
     // Configuration - Replace with your actual values
     const APP_SCHEME = `skaptix://product/${id}`;
-    const APP_STORE_URL = 'https://apps.apple.com/us/app/skaptix/idYOUR_APP_ID'; // Update with actual App Store ID
+    const APP_STORE_URL = constants.APP_STORE_URL;
 
     useEffect(() => {
         // Simple iOS detection

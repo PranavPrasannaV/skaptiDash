@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Smartphone, MessageSquare } from 'lucide-react';
+import * as constants from '../constants';
 
 const AppleLogo = ({ className }: { className?: string }) => (
     <svg
@@ -24,7 +25,7 @@ export default function PostPage() {
     // However, usually Expo Router uses the path structure. 
     // Let's verify standard Expo Router behavior: `skaptix://social/post/123` maps to `app/social/post/[id].tsx`
     const APP_SCHEME = `skaptix://social/post/${id}`;
-    const APP_STORE_URL = 'https://apps.apple.com/us/app/skaptix/idYOUR_APP_ID';
+    const APP_STORE_URL = constants.APP_STORE_URL;
 
     useEffect(() => {
         const userAgent = navigator.userAgent || navigator.vendor;
