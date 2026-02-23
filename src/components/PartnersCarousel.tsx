@@ -3,6 +3,7 @@ import p1 from '../assets/skaptixss/skaptixss/1.png';
 import p2 from '../assets/skaptixss/skaptixss/2.png';
 import p3 from '../assets/skaptixss/skaptixss/3.png';
 import p4 from '../assets/skaptixss/skaptixss/4.png';
+import p5 from '../assets/skaptixss/skaptixss/5.png';
 
 interface Partner {
   id: number;
@@ -11,26 +12,27 @@ interface Partner {
 }
 
 const PartnersCarousel: React.FC = () => {
-  // Four partners using your uploaded assets
+  // Five partners using your uploaded assets
   const partners: Partner[] = [
     { id: 1, name: 'Partner 1', logo: p1 },
     { id: 2, name: 'Partner 2', logo: p2 },
     { id: 3, name: 'Partner 3', logo: p3 },
     { id: 4, name: 'Partner 4', logo: p4 },
+    { id: 5, name: 'Partner 5', logo: p5 },
   ];
 
-  // Duplicate the set so the scrolling loop is seamless with no gap
-  const loop = [...partners, ...partners];
+  // Triple the set for seamless infinite scrolling without jumping
+  const loop = [...partners, ...partners, ...partners];
 
   // Animation duration (seconds) — adjust this to speed up / slow down
-  const durationSeconds = partners.length * 4; // 4 * 4 = 16s default
+  const durationSeconds = partners.length * 5; // 5 * 5 = 25s default
 
   return (
     <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900">Our Partners</h2>
-          <p className="text-gray-600">Trusted by leading brands and retailers worldwide</p>
+          <p className="text-gray-600">Trusted by leading brands and global partners</p>
         </div>
 
         <div className="overflow-hidden w-full hidden md:block">
@@ -63,12 +65,15 @@ const PartnersCarousel: React.FC = () => {
             display: flex; 
             align-items: center; 
             will-change: transform;
-            animation: scroll ${durationSeconds}s linear infinite;
           }
           @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            33.33% { transform: translateX(calc(-100% / 3)); }
+            66.66% { transform: translateX(calc(-200% / 3)); }
+            99.99% { transform: translateX(calc(-100%)); }
+            100% { transform: translateX(0); }
           }
+          .partners-track { animation: scroll ${durationSeconds}s linear infinite; }
           .partners-track:hover { animation-play-state: paused; }
           @media (max-width: 768px) {
             .partners-track { animation: scroll ${durationSeconds * 0.2}s linear infinite !important; }
