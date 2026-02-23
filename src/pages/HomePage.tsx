@@ -34,10 +34,10 @@ const HomePage = () => {
     <div className="min-h-screen">
       <Navigation />
       <Hero />
+      <PartnersCarousel />
       <Features />
       <InteractiveDemo />
       <CallToAction />
-      <PartnersCarousel />
       <Footer />
     </div>
   );

@@ -28,14 +28,14 @@ const PartnersCarousel: React.FC = () => {
   const durationSeconds = partners.length * 5; // 5 * 5 = 25s default
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-16 bg-black">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900">Our Partners</h2>
-          <p className="text-gray-600">Trusted by leading brands and global partners</p>
+          <h2 className="text-3xl font-bold text-white">Our Partners</h2>
+          <p className="text-gray-400">Trusted by leading brands and global partners</p>
         </div>
 
-        <div className="overflow-hidden w-full hidden md:block">
+        <div className="overflow-hidden w-full hidden md:block border-4 border-[#6e83f7] rounded-lg bg-white">
           <div
             className="partners-track flex items-center gap-12"
             style={{
@@ -52,7 +52,7 @@ const PartnersCarousel: React.FC = () => {
         </div>
 
         {/* Mobile: Static grid view */}
-        <div className="md:hidden grid grid-cols-2 gap-4">
+        <div className="md:hidden grid grid-cols-2 gap-4 border-4 border-[#6e83f7] rounded-lg bg-white p-4">
           {partners.map((p) => (
             <div key={p.id} className="flex items-center justify-center w-full h-[80px]">
               <img src={p.logo} alt={p.name} className="h-full w-full object-contain" />
