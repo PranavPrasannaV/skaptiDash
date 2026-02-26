@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import AppLogo from '../assets/skaptixss/skaptixss/skaptixlogo.png';
+import AppleLogo from '../assets/skaptixss/skaptixss/apple.png';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -86,12 +87,15 @@ const Navigation = () => {
                   Support
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] group-hover:w-full transition-all duration-300" />
                 </Link>
-                <Link
-                  to="/waitlist"
-                  className="bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-300 transform hover:-translate-y-1"
+                <a
+                  href="https://apps.apple.com/us/app/skaptix/id6752616424"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2"
                 >
-                  Join Waitlist
-                </Link>
+                  <img src={AppleLogo} alt="Apple" className="w-5 h-5" />
+                  Download on iOS
+                </a>
               </div>
 
               {/* Mobile Menu Button */}
@@ -132,13 +136,16 @@ const Navigation = () => {
                     Support
                   </Link>
                   <div className="pt-2">
-                    <Link
-                      to="/waitlist"
+                    <a
+                      href="https://apps.apple.com/us/app/skaptix/id6752616424"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={handleMobileNavigate}
-                      className="block w-full bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white py-3 rounded-xl mt-2 font-bold hover:shadow-lg transition-all duration-300 text-center text-base"
+                      className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white py-3 rounded-xl mt-2 font-bold hover:shadow-lg transition-all duration-300 text-base"
                     >
-                      Join Waitlist
-                    </Link>
+                      <img src={AppleLogo} alt="Apple" className="w-4 h-4" />
+                      Download on iOS
+                    </a>
                   </div>
                 </nav>
               </div>

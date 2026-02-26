@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Smartphone, Instagram } from 'lucide-react';
+import { ArrowRight, Instagram } from 'lucide-react';
+import AppleLogo from '../assets/skaptixss/skaptixss/apple.png';
+import AndroidLogo from '../assets/skaptixss/skaptixss/android.png';
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -128,21 +129,24 @@ const Hero = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slideInUp delay-1000">
-              <Link
-                to="/waitlist"
+              <a
+                href="https://apps.apple.com/us/app/skaptix/id6752616424"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-[#6e83f7]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden animate-gentle-bounce"
               >
                 <span className="relative z-10 flex items-center justify-center">
-                  Join Waitlist
+                  <img src={AppleLogo} alt="Apple" className="w-5 h-5 mr-2" />
+                  Download on iOS
                   <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#A8B5DB] to-[#6e83f7] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </Link>
+              </a>
 
-              {/* Consolidated Availability Badge */}
-              <div className="flex items-center gap-3 px-5 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm animate-gentle-bounce">
-                <Smartphone className="w-5 h-5 text-white" aria-hidden="true" />
-                <span className="text-sm font-medium text-gray-300">Releasing on iOS & Android – January 2026</span>
+              {/* Android Coming Soon Badge */}
+              <div className="flex items-center justify-center gap-3 px-5 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm animate-gentle-bounce">
+                <img src={AndroidLogo} alt="Android" className="w-5 h-5 flex-shrink-0" />
+                <span className="text-sm font-medium text-gray-300">Releasing on Android in March</span>
               </div>
 
               {/* Instagram button moved to right-edge tab */}

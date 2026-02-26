@@ -21,8 +21,8 @@ const FaqPage = () => {
       answer: 'Skaptix is an AI-powered fashion marketplace that connects all fashion brands and shoppers in one unified platform. We pool products from thousands of brands, and our AI helps you discover exactly what you\'re looking for based on your style, preferences, and budget. Shop from multiple brands in a single checkout experience.',
     },
     {
-      question: 'When will Skaptix launch?',
-      answer: 'Skaptix is launching on both iOS and Android in January 2026. Join our waitlist to be the first to know when we go live and get early access to exclusive features.',
+      question: 'When is Skaptix available?',
+      answer: 'Skaptix is now available on iOS! <a href="https://apps.apple.com/us/app/skaptix/id6752616424" target="_blank" rel="noopener noreferrer" className="text-[#6e83f7] hover:underline">Download Now</a> from the App Store. Android version is coming at the end of March 2026.',
     },
     {
       question: 'How does shipping work?',
