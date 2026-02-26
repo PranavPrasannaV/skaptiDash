@@ -20,10 +20,7 @@ const FaqPage = () => {
       question: 'What is Skaptix?',
       answer: 'Skaptix is an AI-powered fashion marketplace that connects all fashion brands and shoppers in one unified platform. We pool products from thousands of brands, and our AI helps you discover exactly what you\'re looking for based on your style, preferences, and budget. Shop from multiple brands in a single checkout experience.',
     },
-    {
-      question: 'When is Skaptix available?',
-      answer: 'Skaptix is now available on iOS! <a href="https://apps.apple.com/us/app/skaptix/id6752616424" target="_blank" rel="noopener noreferrer" className="text-[#6e83f7] hover:underline">Download Now</a> from the App Store. Android version is coming at the end of March 2026.',
-    },
+    
     {
       question: 'How does shipping work?',
       answer: 'Each brand ships directly from their own location in their own packaging. When you order from multiple brands, you\'ll receive separate packages from each seller. Shipping costs are calculated individually per brand based on their location and shipping methods, giving you transparency and flexibility in your purchasing decisions.',
