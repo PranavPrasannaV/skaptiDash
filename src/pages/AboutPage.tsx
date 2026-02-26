@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Sparkles, Users2, Rocket } from 'lucide-react';
 import Navigation from '../components/Navigation';
+import PartnersCarousel from '../components/PartnersCarousel';
 import Footer from '../components/Footer';
 import neilImage from '../assets/neil.jpg';
 import balajiImage from '../assets/balaji.jpg';
@@ -157,7 +158,7 @@ const AboutPage = () => {
 
       </main>
 
-
+      <PartnersCarousel />
       <Footer />
     </div>
   );

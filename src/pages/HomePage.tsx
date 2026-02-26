@@ -5,6 +5,7 @@ import Hero from '../components/Hero';
 import Features from '../components/Features';
 import InteractiveDemo from '../components/InteractiveDemo';
 import CallToAction from '../components/CallToAction';
+import PartnersCarousel from '../components/PartnersCarousel';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
@@ -33,6 +34,7 @@ const HomePage = () => {
     <div className="min-h-screen">
       <Navigation />
       <Hero />
+      <PartnersCarousel />
       <Features />
       <InteractiveDemo />
       <CallToAction />

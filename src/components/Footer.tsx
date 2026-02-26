@@ -48,12 +48,14 @@ const Footer = () => {
               >
                 Support
               </Link>
-              <Link
-                to="/waitlist"
+              <a
+                href="https://apps.apple.com/us/app/skaptix/id6752616424"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Waitlist
-              </Link>
+                Download
+              </a>
               <Link
                 to="/privacy-policy"
                 className="text-gray-400 hover:text-white transition-colors"

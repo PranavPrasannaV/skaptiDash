@@ -89,7 +89,7 @@ const WaitlistPage = () => {
               <div className="space-y-8" ref={topContentRef}>
                 <div className="inline-flex items-center bg-white/5 border border-white/10 rounded-full px-5 py-2 backdrop-blur">
                   <Sparkles className="w-4 h-4 text-[#A8B5DB] mr-2" />
-                  <span className="text-sm font-medium text-white/70">Launching Q1 2026</span>
+                  <span className="text-sm font-medium text-white/70">Now on iOS</span>
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight animate-pulse-heading">
@@ -104,7 +104,7 @@ const WaitlistPage = () => {
                   {
                     icon: CheckCircle2,
                     title: 'Early Access',
-                    description: 'Gain priority entry to Skaptix before public launch.'
+                    description: 'Get early access to exclusive seller features.',
                   },
                   {
                     icon: Shield,
