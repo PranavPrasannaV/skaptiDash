@@ -22,6 +22,7 @@ ARG VITE_FIREBASE_APP_ID
 ARG VITE_EMAILJS_SERVICE_ID
 ARG VITE_EMAILJS_TEMPLATE_ID
 ARG VITE_EMAILJS_PUBLIC_KEY
+ARG VITE_API_URL
 
 # Set environment variables for build
 ENV VITE_FIREBASE_API_KEY=$VITE_FIREBASE_API_KEY
@@ -33,21 +34,29 @@ ENV VITE_FIREBASE_APP_ID=$VITE_FIREBASE_APP_ID
 ENV VITE_EMAILJS_SERVICE_ID=$VITE_EMAILJS_SERVICE_ID
 ENV VITE_EMAILJS_TEMPLATE_ID=$VITE_EMAILJS_TEMPLATE_ID
 ENV VITE_EMAILJS_PUBLIC_KEY=$VITE_EMAILJS_PUBLIC_KEY
+ENV VITE_API_URL=$VITE_API_URL
 
 # Build the application
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine
+FROM node:20-alpine
 
-# Copy Nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-# Copy built assets from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copy production dependencies (including express)
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Copy built assets and server file
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/server.js ./server.js
 
 # Expose port
 EXPOSE 80
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Set Node environment to production
+ENV NODE_ENV=production
+
+# Start Express Server
+CMD ["node", "server.js"]

@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "start": "node server.js",
     "dev": "vite",
     "build": "vite build",
     "prerender": "node scripts/prerender.cjs",
@@ -13,6 +14,8 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "axios": "^1.13.6",
+    "express": "^5.2.1",
     "firebase": "^12.4.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Smartphone, User } from 'lucide-react';
+import { Smartphone, User, Loader2 } from 'lucide-react';
+import axios from 'axios';
 import * as constants from '../constants';
 
 const AppleLogo = ({ className }: { className?: string }) => (
@@ -14,10 +15,18 @@ const AppleLogo = ({ className }: { className?: string }) => (
     </svg>
 );
 
+interface ProfileData {
+    displayName?: string;
+    username?: string;
+    profilePhotoUrl?: string;
+}
+
 export default function ProfilePage() {
     const { id } = useParams();
     const [isRedirecting, setIsRedirecting] = useState(true);
     const [isIOS, setIsIOS] = useState(false);
+    const [profile, setProfile] = useState<ProfileData | null>(null);
+    const [isLoadingProfile, setIsLoadingProfile] = useState(true);
 
     // Configuration - Replace with your actual values
     const APP_SCHEME = `skaptix://social/profile/${id}`;
@@ -28,18 +37,36 @@ export default function ProfilePage() {
         const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent);
         setIsIOS(isIOSDevice);
 
-        if (!id || !isIOSDevice) {
+        if (!id) {
             setIsRedirecting(false);
+            setIsLoadingProfile(false);
             return;
         }
 
-        window.location.href = APP_SCHEME;
+        // Fetch brand profile data
+        const fetchProfile = async () => {
+            try {
+                const apiUrl = import.meta.env.VITE_API_URL || 'https://backend-test.skaptix.com/api';
+                const response = await axios.get(`${apiUrl}/social-media/users/${id}`);
+                setProfile(response.data.data);
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+            } finally {
+                setIsLoadingProfile(false);
+            }
+        };
 
-        const timeout = setTimeout(() => {
+        fetchProfile();
+
+        if (isIOSDevice) {
+            window.location.href = APP_SCHEME;
+            const timeout = setTimeout(() => {
+                setIsRedirecting(false);
+            }, 2000);
+            return () => clearTimeout(timeout);
+        } else {
             setIsRedirecting(false);
-        }, 2000);
-
-        return () => clearTimeout(timeout);
+        }
     }, [id, APP_SCHEME]);
 
     const handleOpenApp = () => {
@@ -50,19 +77,37 @@ export default function ProfilePage() {
         window.location.href = APP_STORE_URL;
     };
 
+    const brandName = profile?.displayName || profile?.username || 'Profile';
+
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
-            <div className="max-w-md w-full bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 text-center">
-                <div className="w-20 h-20 bg-blue-600 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <User size={40} className="text-white" />
+            {/* Top Skaptix Logo */}
+            {/* <div className="mb-8 flex flex-col items-center justify-center">
+                <img src={AppLogo} alt="Skaptix Logo" className="w-16 h-16 object-cover rounded-xl shadow-lg border border-white/10" />
+                <span className="text-xl font-bold mt-3 tracking-tight">skaptix</span>
+            </div> */}
+
+            <div className="max-w-md w-full bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 text-center relative overflow-hidden">
+                {isLoadingProfile && (
+                    <div className="absolute inset-0 bg-zinc-900/80 backdrop-blur-sm z-10 flex items-center justify-center">
+                        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                    </div>
+                )}
+
+                <div className="w-24 h-24 bg-zinc-800 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg border border-zinc-700 overflow-hidden">
+                    {profile?.profilePhotoUrl ? (
+                        <img src={profile.profilePhotoUrl} alt={`${brandName} logo`} className="w-full h-full object-cover" />
+                    ) : (
+                        <User size={40} className="text-zinc-400" />
+                    )}
                 </div>
 
-                <h1 className="text-2xl font-bold mb-2">View Profile on Skaptix</h1>
+                <h1 className="text-2xl font-bold mb-2">View {brandName} on Skaptix</h1>
 
                 {isIOS ? (
                     <>
-                        <p className="text-zinc-400 mb-8">
-                            Open the Skaptix app to view this profile, follow, and connect.
+                        <p className="text-zinc-400 mb-8 px-2">
+                            Open the Skaptix app to view {brandName}, follow, and shop their products.
                         </p>
 
                         <div className="space-y-4">
@@ -104,6 +149,14 @@ export default function ProfilePage() {
                         </div>
                     </div>
                 )}
+
+                {/* Introductory text below buttons */}
+                <div className="mt-8 pt-6 border-t border-zinc-800 text-center">
+                    <p className="text-[13px] leading-relaxed text-zinc-400">
+                        <strong className="text-zinc-300 font-semibold block mb-1">Skaptix: The fashion marketplace designed for you.</strong>
+                        Discover & shop thousands of verified clothing brands all across the U.S, in one place.
+                    </p>
+                </div>
             </div>
         </div>
     );
