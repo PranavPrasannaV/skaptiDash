@@ -96,6 +96,7 @@ if ! docker build --platform linux/amd64 \
     --build-arg VITE_EMAILJS_TEMPLATE_ID="$VITE_EMAILJS_TEMPLATE_ID" \
     --build-arg VITE_EMAILJS_PUBLIC_KEY="$VITE_EMAILJS_PUBLIC_KEY" \
     --build-arg VITE_API_URL="$VITE_API_URL" \
+    --build-arg VITE_APP_DEEP_LINK_SCHEME="$VITE_APP_DEEP_LINK_SCHEME" \
     -t "${APP_NAME}:${IMAGE_TAG}" \
     -t "${APP_NAME}:latest" . ; then
     echo "❌ Docker build failed"

@@ -33,7 +33,7 @@ export default function ProductPage() {
     const [isLoading, setIsLoading] = useState(true);
 
     // Configuration - Replace with your actual values
-    const APP_SCHEME = `skaptix://product/${id}`;
+    const APP_SCHEME = `${import.meta.env.VITE_APP_DEEP_LINK_SCHEME || 'skaptix'}://product/${id}`;
     const APP_STORE_URL = constants.APP_STORE_URL;
 
     useEffect(() => {

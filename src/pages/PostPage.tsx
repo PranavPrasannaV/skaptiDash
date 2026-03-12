@@ -37,7 +37,8 @@ export default function PostPage() {
     // Based on file structure `apps/mobile/app/social/post/[id].tsx`, it might be `skaptix://social/post/[id]`
     // However, usually Expo Router uses the path structure. 
     // Let's verify standard Expo Router behavior: `skaptix://social/post/123` maps to `app/social/post/[id].tsx`
-    const APP_SCHEME = `skaptix://social/post/${id}`;
+    console.log('[PostPage] Rendering for ID:', id);
+    const APP_SCHEME = `${import.meta.env.VITE_APP_DEEP_LINK_SCHEME || 'skaptix'}://social/post/${id}`;
     const APP_STORE_URL = constants.APP_STORE_URL;
 
     useEffect(() => {

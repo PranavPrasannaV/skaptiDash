@@ -28,8 +28,8 @@ export default function ProfilePage() {
     const [profile, setProfile] = useState<ProfileData | null>(null);
     const [isLoadingProfile, setIsLoadingProfile] = useState(true);
 
-    // Configuration - Replace with your actual values
-    const APP_SCHEME = `skaptix://social/profile/${id}`;
+    // Configuration
+    const APP_SCHEME = `${import.meta.env.VITE_APP_DEEP_LINK_SCHEME || 'skaptix'}://social/profile/${id}`;
     const APP_STORE_URL = constants.APP_STORE_URL;
 
     useEffect(() => {
