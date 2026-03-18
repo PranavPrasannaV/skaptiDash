@@ -87,16 +87,15 @@ const handleDynamicRequest = async (req, res, type) => {
                 const data = await response.json();
                 const item = data?.data;
                 if (item) {
-                    let meta = { url: `https://skaptix.com${req.originalUrl}` };
+                    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+                    const host = req.get('host');
+                    let meta = { url: `${protocol}://${host}${req.originalUrl}` };
                     
                     if (type === 'profile') {
                         const name = item.displayName || item.username || 'Profile';
                         meta.title = `View ${name} on Skaptix`;
                         meta.description = `Open the Skaptix app to view ${name}, follow, and shop their products.`;
                         meta.image = item.profilePhotoUrl;
-                        if (meta.image && !meta.image.includes('.') && !meta.image.includes('?')) {
-                            meta.image += '.jpg';
-                        }
                     } else if (type === 'post') {
                         const author = item.user?.displayName || item.user?.username || 'User';
                         meta.title = `Post by ${author} on Skaptix`;
@@ -106,9 +105,6 @@ const handleDynamicRequest = async (req, res, type) => {
                         meta.title = `${item.title} | Skaptix`;
                         meta.description = item.description || 'Check out this product on Skaptix';
                         meta.image = item.images?.[0]?.url;
-                        if (meta.image && !meta.image.includes('?')) {
-                            meta.image += '.jpg'; // Help crawlers identify it as an image
-                        }
                     }
 
                     const apiBase = apiUrl.endsWith('/api') ? apiUrl.slice(0, -4) : (apiUrl.endsWith('/api/') ? apiUrl.slice(0, -5) : apiUrl);
