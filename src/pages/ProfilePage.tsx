@@ -156,7 +156,7 @@ export default function ProfilePage() {
 
         if (isSeller && ownerId) {
           // Fetch products
-          const prodRes = await axios.get(`${API_URL}/products/business/${ownerId}`, { params: { limit: 20 } });
+          const prodRes = await axios.get(`${API_URL}/products/business/${ownerId}`, { params: { limit: 20, approvedOnly: true } });
           const resData = prodRes.data?.data;
           const prods: ProductItem[] = Array.isArray(resData) ? resData : (resData?.data ?? []);
           setProducts(Array.isArray(prods) ? prods : []);
@@ -188,7 +188,7 @@ export default function ProfilePage() {
     setLoadingMoreProducts(true);
     try {
       const res = await axios.get(`${API_URL}/products/business/${ownerId}`, {
-        params: { limit: 20, cursor: productCursor },
+        params: { limit: 20, cursor: productCursor, approvedOnly: true },
       });
       const resData = res.data?.data;
       const newProds: ProductItem[] = Array.isArray(resData) ? resData : (resData?.data ?? []);
