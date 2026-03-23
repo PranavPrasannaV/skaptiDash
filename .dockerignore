@@ -1,0 +1,7 @@
+node_modules
+dist
+.git
+.bolt
+my-react-app
+*.tar
+deploy_remote.sh

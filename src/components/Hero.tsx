@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Instagram } from 'lucide-react';
 import AppleLogo from '../assets/skaptixss/skaptixss/apple.png';
-import AndroidLogo from '../assets/skaptixss/skaptixss/android.png';
+import AndroidLogo from '../assets/skaptixss/skaptixss/Android.png';
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

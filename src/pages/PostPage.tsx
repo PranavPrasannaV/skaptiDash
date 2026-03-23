@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Smartphone, MessageSquare } from 'lucide-react';
+import { Smartphone, MessageSquare, Loader2 } from 'lucide-react';
+import axios from 'axios';
 import * as constants from '../constants';
 
 const AppleLogo = ({ className }: { className?: string }) => (
@@ -14,23 +15,52 @@ const AppleLogo = ({ className }: { className?: string }) => (
     </svg>
 );
 
+const resolveImageUrl = (url?: string) => {
+    if (!url) return undefined;
+    if (url.startsWith('/')) {
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://backend-test.skaptix.com/api';
+        const apiBase = apiUrl.endsWith('/api') ? apiUrl.slice(0, -4) : (apiUrl.endsWith('/api/') ? apiUrl.slice(0, -5) : apiUrl);
+        return `${apiBase}${url}`;
+    }
+    return url;
+};
+
 export default function PostPage() {
     const { id } = useParams();
     const [isRedirecting, setIsRedirecting] = useState(true);
     const [isIOS, setIsIOS] = useState(false);
+    const [post, setPost] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // Configuration - Replace with your actual values
     // Assuming the mobile app route for posts is something like skaptix://post/[id] or skaptix://social/post/[id]
     // Based on file structure `apps/mobile/app/social/post/[id].tsx`, it might be `skaptix://social/post/[id]`
     // However, usually Expo Router uses the path structure. 
     // Let's verify standard Expo Router behavior: `skaptix://social/post/123` maps to `app/social/post/[id].tsx`
-    const APP_SCHEME = `skaptix://social/post/${id}`;
+    console.log('[PostPage] Rendering for ID:', id);
+    const APP_SCHEME = `${import.meta.env.VITE_APP_DEEP_LINK_SCHEME || 'skaptix'}://social/post/${id}`;
     const APP_STORE_URL = constants.APP_STORE_URL;
 
     useEffect(() => {
         const userAgent = navigator.userAgent || navigator.vendor;
         const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent);
         setIsIOS(isIOSDevice);
+
+        const fetchPost = async () => {
+            try {
+                const apiUrl = import.meta.env.VITE_API_URL || 'https://backend-test.skaptix.com/api';
+                const response = await axios.get(`${apiUrl}/social-media/posts/${id}`);
+                setPost(response.data.data);
+            } catch (error) {
+                console.error('Error fetching post:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        if (id) {
+            fetchPost();
+        }
 
         if (!id || !isIOSDevice) {
             setIsRedirecting(false);
@@ -57,11 +87,29 @@ export default function PostPage() {
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
             <div className="max-w-md w-full bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 text-center">
-                <div className="w-20 h-20 bg-blue-600 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <MessageSquare size={40} className="text-white" />
+                <div className="w-20 h-20 bg-blue-600 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-blue-500/20 overflow-hidden">
+                    {isLoading ? (
+                        <Loader2 size={40} className="text-white animate-spin" />
+                    ) : post?.images?.[0]?.imageUrl || post?.video?.thumbnailUrl ? (
+                        <img 
+                            src={resolveImageUrl(post.images?.[0]?.imageUrl || post?.video?.thumbnailUrl)} 
+                            alt="Post content" 
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <MessageSquare size={40} className="text-white" />
+                    )}
                 </div>
 
-                <h1 className="text-2xl font-bold mb-2">View Post on Skaptix</h1>
+                <h1 className="text-2xl font-bold mb-2">
+                    {isLoading ? 'Loading Post...' : post?.user?.displayName || post?.user?.username || 'View Post'} on Skaptix
+                </h1>
+
+                {post?.caption && (
+                    <p className="text-zinc-300 mb-4 line-clamp-3 px-2">
+                        "{post.caption}"
+                    </p>
+                )}
 
                 {isIOS ? (
                     <>
