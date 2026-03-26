@@ -28,7 +28,7 @@ loadTemplate();
 console.log('🚀 Skaptix SSR Server v1.0.4 starting...');
 
 // Serve static assets (js, css, images) directly
-app.use(express.static(path.resolve(__dirname, 'dist'), { index: false }));
+app.use(express.static(path.resolve(__dirname, 'dist'), { index: false, dotfiles: 'allow' }));
 
 const replaceMetaTags = (html, meta) => {
     let result = html;

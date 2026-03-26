@@ -43,6 +43,10 @@ npm run dev
 npm run build
 ```
 
+## Deployment
+
+For detailed instructions on deploying to production and test environments using Azure, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
 ## Firestore Schema
 
 Waitlist submissions are stored in the `waitlistRequests` collection with the following shape:

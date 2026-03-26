@@ -15,6 +15,17 @@ const AppleLogo = ({ className }: { className?: string }) => (
     </svg>
 );
 
+const AndroidLogo = ({ className }: { className?: string }) => (
+    <svg 
+        viewBox="0 0 576 512" 
+        fill="currentColor" 
+        className={className} 
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M420.22 173.04l43.26-75.1c4.54-7.86 1.83-17.91-6.04-22.45-7.88-4.54-17.92-1.83-22.46 6.04l-44.52 77.29c-32.93-14.88-69.5-23.15-108.45-23.15-38.94 0-75.52 8.27-108.46 23.15l-44.51-77.29c-4.54-7.87-14.58-10.58-22.46-6.04-7.87 4.54-10.58 14.59-6.04 22.45l43.26 75.1C65.52 216.7 8 285.83 8 368h560c0-82.17-57.52-151.3-147.78-194.96zM170.81 315.68c-12.72 0-23.04-10.35-23.04-23.09s10.32-23.09 23.04-23.09c12.73 0 23.04 10.35 23.04 23.09s-10.31 23.09-23.04 23.09zm234.38 0c-12.73 0-23.04-10.35-23.04-23.09s10.31-23.09 23.04-23.09c12.72 0 23.04 10.35 23.04 23.09s-10.32 23.09-23.04 23.09z"/>
+    </svg>
+);
+
 const resolveImageUrl = (url?: string) => {
     if (!url) return undefined;
     if (url.startsWith('/')) {
@@ -29,18 +40,22 @@ export default function ProductPage() {
     const { id } = useParams();
     const [isRedirecting, setIsRedirecting] = useState(true);
     const [isIOS, setIsIOS] = useState(false);
+    const [isAndroid, setIsAndroid] = useState(false);
     const [product, setProduct] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     // Configuration - Replace with your actual values
     const APP_SCHEME = `${import.meta.env.VITE_APP_DEEP_LINK_SCHEME || 'skaptix'}://product/${id}`;
     const APP_STORE_URL = constants.APP_STORE_URL;
+    const PLAY_STORE_URL = constants.PLAY_STORE_URL;
 
     useEffect(() => {
-        // Simple iOS detection
+        // Simple iOS and Android detection
         const userAgent = navigator.userAgent || navigator.vendor;
         const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent);
+        const isAndroidDevice = /android/i.test(userAgent);
         setIsIOS(isIOSDevice);
+        setIsAndroid(isAndroidDevice);
 
         const fetchProduct = async () => {
             try {
@@ -58,12 +73,12 @@ export default function ProductPage() {
             fetchProduct();
         }
 
-        if (!id || !isIOSDevice) {
+        if (!id || (!isIOSDevice && !isAndroidDevice)) {
             setIsRedirecting(false);
             return;
         }
 
-        // Attempt to open the app (only on iOS)
+        // Attempt to open the app
         window.location.href = APP_SCHEME;
 
         // Provide a fallback if it doesn't open within a short timeout
@@ -79,7 +94,11 @@ export default function ProductPage() {
     };
 
     const handleDownloadApp = () => {
-        window.location.href = APP_STORE_URL;
+        if (isAndroid) {
+            window.location.href = PLAY_STORE_URL;
+        } else {
+            window.location.href = APP_STORE_URL;
+        }
     };
 
     return (
@@ -109,7 +128,7 @@ export default function ProductPage() {
                     </p>
                 )}
 
-                {isIOS ? (
+                {(isIOS || isAndroid) ? (
                     <>
                         <p className="text-zinc-400 mb-8">
                             Open the Skaptix app to view product details, check availability, and purchase.
@@ -128,8 +147,17 @@ export default function ProductPage() {
                                 onClick={handleDownloadApp}
                                 className="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-semibold py-3 px-6 rounded-xl flex items-center justify-center transition-all active:scale-95"
                             >
-                                <AppleLogo className="w-5 h-5 mr-2" />
-                                Download on App Store
+                                {isAndroid ? (
+                                    <>
+                                        <AndroidLogo className="w-5 h-5 mr-2" />
+                                        Download on Play Store
+                                    </>
+                                ) : (
+                                    <>
+                                        <AppleLogo className="w-5 h-5 mr-2" />
+                                        Download on App Store
+                                    </>
+                                )}
                             </button>
                         </div>
 
@@ -141,15 +169,16 @@ export default function ProductPage() {
                     </>
                 ) : (
                     <div className="mt-4">
-                        <div className="flex items-center justify-center mb-4 text-zinc-500">
+                        <div className="flex items-center justify-center mb-4 text-zinc-500 space-x-4">
                             <AppleLogo className="w-12 h-12 opacity-50" />
+                            <AndroidLogo className="w-12 h-12 opacity-50" />
                         </div>
                         <p className="text-zinc-400 mb-6">
-                            Skaptix is currently available only on iOS.
+                            Skaptix is available on iOS and Android.
                         </p>
                         <div className="p-4 bg-zinc-800/50 rounded-xl border border-zinc-700">
                             <p className="text-sm text-zinc-300">
-                                Please visit this link on your iPhone or iPad to view the product in the app.
+                                Please visit this link on your mobile device to view the product in the app.
                             </p>
                         </div>
                     </div>
