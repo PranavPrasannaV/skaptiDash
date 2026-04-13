@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Instagram } from 'lucide-react';
 import AppleLogo from '../assets/skaptixss/skaptixss/apple.png';
-import AndroidLogo from '../assets/skaptixss/skaptixss/Android.png';
+import AndroidLogo from '../assets/skaptixss/skaptixss/android.png';
+import * as constants from '../constants';
+
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
   const [currentCategory, setCurrentCategory] = useState(0);
-  
+
   const categories = ['Every Brand', 'All Fashion', 'Every Style', 'Every Trend'];
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const Hero = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
@@ -32,7 +34,7 @@ const Hero = () => {
     const interval = setInterval(() => {
       setCurrentCategory((prev) => (prev + 1) % categories.length);
     }, 2500);
-    
+
     return () => clearInterval(interval);
   }, [categories.length]);
 
@@ -42,7 +44,7 @@ const Hero = () => {
       <div className="absolute inset-0">
         {/* Animated Grid */}
         <div className="absolute inset-0 opacity-20">
-          <div 
+          <div
             className="absolute inset-0 bg-gradient-to-r from-[#6e83f7]/20 to-[#A8B5DB]/20"
             style={{
               backgroundImage: `
@@ -56,7 +58,7 @@ const Hero = () => {
         </div>
 
         {/* Floating Orbs */}
-        <div 
+        <div
           className="absolute w-96 h-96 bg-gradient-to-r from-[#6e83f7]/30 to-[#A8B5DB]/30 rounded-full blur-3xl"
           style={{
             top: '10%',
@@ -64,7 +66,7 @@ const Hero = () => {
             transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px) rotate(${scrollY * 0.1}deg)`
           }}
         />
-        <div 
+        <div
           className="absolute w-72 h-72 bg-gradient-to-r from-[#A8B5DB]/40 to-[#6e83f7]/40 rounded-full blur-3xl"
           style={{
             bottom: '20%',
@@ -72,7 +74,7 @@ const Hero = () => {
             transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * -0.015}px) rotate(${scrollY * -0.1}deg)`
           }}
         />
-        <div 
+        <div
           className="absolute w-64 h-64 bg-gradient-to-r from-[#6e83f7]/25 to-[#A8B5DB]/25 rounded-full blur-3xl"
           style={{
             top: '60%',
@@ -98,7 +100,7 @@ const Hero = () => {
                   MARKETPLACE
                 </span>
               </h1>
-              
+
               {/* Animated Category Carousel */}
               <div className="flex items-center justify-center gap-1 text-2xl lg:text-3xl font-bold mt-8">
                 <span className="text-gray-400">FOR</span>
@@ -106,13 +108,12 @@ const Hero = () => {
                   {categories.map((category, index) => (
                     <div
                       key={category}
-                      className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
-                        index === currentCategory
-                          ? 'translate-y-0 opacity-100'
-                          : index < currentCategory
+                      className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${index === currentCategory
+                        ? 'translate-y-0 opacity-100'
+                        : index < currentCategory
                           ? '-translate-y-full opacity-0'
                           : 'translate-y-full opacity-0'
-                      }`}
+                        }`}
                     >
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB]">
                         {category}
@@ -129,6 +130,8 @@ const Hero = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slideInUp delay-1000">
+
+              {/* iOS Button */}
               <a
                 href="https://apps.apple.com/us/app/skaptix/id6752616424"
                 target="_blank"
@@ -143,13 +146,21 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-[#A8B5DB] to-[#6e83f7] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </a>
 
-              {/* Android Coming Soon Badge */}
-              <div className="flex items-center justify-center gap-3 px-5 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm animate-gentle-bounce">
-                <img src={AndroidLogo} alt="Android" className="w-5 h-5 flex-shrink-0" />
-                <span className="text-sm font-medium text-gray-300">Releasing on Android in March</span>
-              </div>
+              {/* Android Button */}
+              <a
+                href="https://play.google.com/store/apps/details?id=com.balajip.skaptix"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-gradient-to-r from-[#ffffff] to-[#ffffff] text-[#6e83f7] px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-[#f2f2f2]/25 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden animate-gentle-bounce"
+              >
+                <span className="relative z-10 flex items-center justify-center">
+                  <img src={AndroidLogo} alt="Android" className="w-5 h-5 mr-2" />
+                  Download on Android
+                  <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#f2f2f2] to-[#f2f2f2] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </a>
 
-              {/* Instagram button moved to right-edge tab */}
             </div>
           </div>
         </div>

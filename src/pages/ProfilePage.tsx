@@ -228,9 +228,9 @@ export default function ProfilePage() {
   const handleOpenApp = () => { window.location.href = deepLink; };
   const handleDownloadApp = () => {
     if (isAndroid) {
-        window.location.href = PLAY_STORE_URL;
+      window.location.href = PLAY_STORE_URL;
     } else {
-        window.location.href = APP_STORE_URL;
+      window.location.href = APP_STORE_URL;
     }
   };
   const openProduct = (pid: string) => { window.location.href = `${DEEP_LINK_SCHEME}://product/${pid}`; };
@@ -336,15 +336,15 @@ export default function ProfilePage() {
             </div>
             <button onClick={() => setBannerVisible(false)} className="text-zinc-600 text-lg leading-none px-1 flex-shrink-0">×</button>
             <div className="flex flex-col gap-1.5 flex-shrink-0">
-              <button 
-                onClick={handleDownloadApp} 
+              <button
+                onClick={handleDownloadApp}
                 className="text-sm font-bold px-4 py-2.5 rounded-xl text-white flex items-center justify-center gap-2 whitespace-nowrap active:scale-95 transition-all w-full"
                 style={{ backgroundColor: THEME }}
               >
                 {isAndroid ? (
-                    <><AndroidLogo className="w-5 h-5" /> Download Skaptix</>
+                  <><AndroidLogo className="w-5 h-5" /> Download Skaptix</>
                 ) : (
-                    <><AppleLogo className="w-5 h-5" /> Download Skaptix</>
+                  <><AppleLogo className="w-5 h-5" /> Download Skaptix</>
                 )}
               </button>
             </div>
@@ -393,15 +393,15 @@ export default function ProfilePage() {
                 className="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-semibold py-3 px-6 rounded-xl flex items-center justify-center transition-all active:scale-95"
               >
                 {isAndroid ? (
-                    <>
-                        <AndroidLogo className="w-5 h-5 mr-2" />
-                        Download on Play Store
-                    </>
+                  <>
+                    <AndroidLogo className="w-5 h-5 mr-2" />
+                    Download on Play Store
+                  </>
                 ) : (
-                    <>
-                        <AppleLogo className="w-5 h-5 mr-2" />
-                        Download on App Store
-                    </>
+                  <>
+                    <AppleLogo className="w-5 h-5 mr-2" />
+                    Download on App Store
+                  </>
                 )}
               </button>
             </div>

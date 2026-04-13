@@ -1,5 +1,6 @@
 import { Heart, Instagram, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import * as constants from '../constants';
 
 const Footer = () => {
   return (
@@ -49,12 +50,20 @@ const Footer = () => {
                 Support
               </Link>
               <a
-                href="https://apps.apple.com/us/app/skaptix/id6752616424"
+                href={constants.APP_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Download
+                App Store
+              </a>
+              <a
+                href={constants.PLAY_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Google Play
               </a>
               <Link
                 to="/privacy-policy"

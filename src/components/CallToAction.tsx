@@ -2,6 +2,8 @@
 // and moved to a dedicated Contact page. Keep this component minimal so
 // that HomePage can import it without causing JSX/parse errors.
 import AppleLogo from '../assets/skaptixss/skaptixss/apple.png';
+import AndroidLogo from '../assets/skaptixss/skaptixss/android.png';
+import * as constants from '../constants';
 
 const CallToAction = () => {
   return (
@@ -13,10 +15,15 @@ const CallToAction = () => {
             <p className="mt-3 text-gray-300 max-w-xl">Download and list your brand now.</p>
           </div>
 
-          <div className="flex-shrink-0">
-            <a href="https://apps.apple.com/us/app/skaptix/id6752616424" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-2xl font-semibold hover:shadow-2xl transition">
+          <div className="flex flex-col gap-4 flex-shrink-0 w-full md:w-auto">
+            <a href={constants.APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#6e83f7] to-[#A8B5DB] text-white px-6 py-3 rounded-2xl font-semibold hover:shadow-2xl transition">
               <img src={AppleLogo} alt="Apple" className="w-4 h-4" />
-              Download Now
+              Download on iOS
+              <span aria-hidden>→</span>
+            </a>
+            <a href={constants.PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 bg-white text-[#6e83f7] px-6 py-3 rounded-2xl font-semibold hover:shadow-2xl transition border border-white/10">
+              <img src={AndroidLogo} alt="Android" className="w-4 h-4" />
+              Download on Android
               <span aria-hidden>→</span>
             </a>
           </div>
